@@ -1,9 +1,11 @@
 import React from 'react';
-import DiemForm from './DiemForm';
+import AddDiem from './AddDiem';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => (
 	<div>
-		<DiemForm />
+		This is the dashboard!
+		<Link to='/create'>Add Diem </Link>
 	</div>
 );
 

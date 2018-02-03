@@ -32,12 +32,11 @@ export default class DiemForm extends React.Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		console.log(this.state);
 		this.props.onSubmit({
-			reading: this.state.reading,
-			writing: this.state.writing,
-			exercising: this.state.exercising,
-			detracting: this.state.detracting,
+			reading: parseFloat(this.state.reading.split(':')[0] * 60) + parseFloat(this.state.reading.split(':')[1]),
+			writing: parseFloat(this.state.writing.split(':')[0] * 60) + parseFloat(this.state.writing.split(':')[1]),
+			exercising: parseFloat(this.state.exercising.split(':')[0] * 60) + parseFloat(this.state.exercising.split(':')[1]),
+			detracting: parseFloat(this.state.detracting.split(':')[0] * 60) + parseFloat(this.state.detracting.split(':')[1]),
 			createdAt: this.state.createdAt.valueOf()
 		});
 	}
@@ -46,10 +45,39 @@ export default class DiemForm extends React.Component {
 		return (
 			<div>
 				<form onSubmit={this.onSubmit}>
-					<input type='text' placeholder='Reading' />
-					<input type='text' placeholder='Writing' />
-					<input type='text' placeholder='Exercising' />
-					<input type='text' placeholder='Detracting' />
+					<input 
+						type='text' 
+						placeholder='HH:mm' 
+						pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" 
+						id="24h"
+						autoFocus
+						value={this.state.reading}
+						onChange={this.onReadingChange}
+					/>
+					<input 
+						type='text' 
+						placeholder='HH:mm' 
+						pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" 
+						id="24h"
+						value={this.state.writing}
+						onChange={this.onWritingChange}
+					/>
+					<input 
+						type='text' 
+						placeholder='HH:mm'
+						pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" 
+						id="24h"
+						value={this.state.exercising}
+						onChange={this.onExercisingChange}
+					/>
+					<input 
+						type='text' 
+						placeholder='HH:mm'
+						pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" 
+						id="24h"
+						value={this.state.detracting}
+						onChange={this.onDetractingChange}
+					/>
 					<input type='text' placeholder='Date' />
 					<button>Submit</button>
 				</form>

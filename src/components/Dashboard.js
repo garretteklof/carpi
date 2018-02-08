@@ -1,9 +1,11 @@
 import React from 'react'
-import DiemForm from './DiemForm'
+import { Link } from 'react-router-dom'
+import DiemList from './DiemList'
 const Dashboard = () => (
 	<div>
 		This is the dashboard!
-		<DiemForm />
+		<Link to='/create'>Add Diem</Link>
+		<DiemList />
 	</div>
 )
 

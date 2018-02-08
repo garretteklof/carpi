@@ -7,6 +7,17 @@ export default (state = diemsReducerDefaultState, action ) => {
 				...state,
 				action.diem
 			];
+		case 'EDIT_DIEM':
+			return state.map((diem) => {
+				if (diem.id === action.id) {
+					return {
+						...diem,
+						...action.updates
+					};
+				} else {
+					return diem;
+				}
+			});
 		default:
 			return state;
 	}

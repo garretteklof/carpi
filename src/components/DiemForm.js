@@ -5,13 +5,16 @@ import ActivityInput from './ActivityInput';
 
 export default class DiemForm extends React.Component {
 
-	state = {
-		date: moment(),
-		activities: [{ name: 'Sleeping', timeSpent: 8 },{name: 'Detracting', timeSpent: 16 }],
-		addActivity: '',
-		calendarFocused: false,
-		step: 1,
-		error: ''
+	constructor(props) {
+		super(props);
+		this.state = {
+			date: props.diem ? moment(props.diem.date) : moment(),
+			activities: props.diem ? props.diem.activities : [{ name: 'Sleeping', timeSpent: 8 },{name: 'Detracting', timeSpent: 16 }],
+			addActivity: '',
+			calendarFocused: false,
+			step: 1,
+			error: ''
+		}
 	}
 
 	onDateChange = (date) => {

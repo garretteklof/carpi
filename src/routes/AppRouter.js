@@ -4,6 +4,7 @@ import createHistory from 'history/createBrowserHistory';
 import LoginPage from '../components/LoginPage';
 import Dashboard from '../components/Dashboard';
 import AddDiem from '../components/AddDiem';
+import EditDiem from '../components/EditDiem';
 import NotFoundPage from '../components/NotFoundPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
@@ -17,6 +18,7 @@ const AppRouter = () => (
 				<PublicRoute path='/' component={LoginPage} exact={true}/>
 				<PrivateRoute path='/dashboard' component={Dashboard} />
 				<PrivateRoute path='/create' component={AddDiem} />
+				<PrivateRoute path='/edit/:id' component={EditDiem} />
 				<Route component={NotFoundPage} />
 			</Switch>
 		</div>

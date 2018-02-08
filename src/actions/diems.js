@@ -11,3 +11,9 @@ export const addDiem = ({
 		activities
 	}
 	});
+
+export const editDiem = (id, updates) => ({
+	type: 'EDIT_DIEM',
+	id,
+	updates
+});

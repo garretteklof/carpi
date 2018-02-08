@@ -1,89 +1,93 @@
 import React from 'react';
 import moment from 'moment';
+import ActivityInput from './ActivityInput';
 
 export default class DiemForm extends React.Component {
+
 	state = {
-		reading: '',
-		writing: '',
-		exercising: '',
-		detracting: '',
-		createdAt: moment()
+		date: moment(),
+		activities: [{ name: 'sleeping', timeSpent: 8 },{name: 'detracting', timeSpent: 16 }],
+		addActivity: '',
+		error: ''
 	}
 
-	onReadingChange = (e) => {
-		const reading = e.target.value;
-		this.setState(() => ({ reading }));
+	onActivityChange = (e) => {
+		const addActivity = e.target.value;
+		this.setState(() => ({ addActivity }));
 	}
 
-	onWritingChange = (e) => {
-		const writing = e.target.value;
-		this.setState(() => ({ writing }));
+	addActivityInput = (e) => {
+		e.preventDefault();
+		const name = this.state.addActivity;
+		if (!name) {
+			this.setState(() => ({ error: 'Can\'t be blank'}));
+		} else if (!name.toLowerCase().match(/ing\b/)) {
+			this.setState(() => ({ error: '*GRAMMAR POLICE* Please use a present participle [ word that ends in \'-ing\' ]'}));
+		}	else if (this.state.activities.length >= 5) {
+			this.setState(() => ({ error: 'Max of five'}));
+		} else {
+			this.setState({
+				activities: [...this.state.activities, { name, timeSpent: 0}],
+				addActivity: '',
+				error: ''
+			});
+		}
 	}
 
-	onExercisingChange = (e) => {
-		const exercising = e.target.value;
-		this.setState(() => ({ exercising }));
+	onTimeSpentChange = (index) => (value) => {
+		const activities = [...this.state.activities];
+		activities[index].timeSpent = value;
+		this.setState(() => ({ activities }));
 	}
 
-	onDetractingChange = (e) => {
-		const detracting = e.target.value;
-		this.setState(() => ({ detracting}));
+	removeActivityInput = (index) => (e) => {
+		e.preventDefault();
+		const activities = [...this.state.activities];
+		activities.splice(index,1);
+		this.setState(() => ({ activities, error:''}));
+	}
+	checkTotalTime = () => {
+		const totalTime = this.state.activities.map((activity) => 
+			activity.timeSpent).reduce((a,b) => a + b);
+		if (totalTime > 24) {
+			// DO SOMETHNG (???)
+			console.log(totalTime);
+		} 
 	}
 
 	onSubmit = (e) => {
-		e.preventDefault();
-		this.props.onSubmit({
-			reading: parseFloat(this.state.reading.split(':')[0] * 60) + parseFloat(this.state.reading.split(':')[1]),
-			writing: parseFloat(this.state.writing.split(':')[0] * 60) + parseFloat(this.state.writing.split(':')[1]),
-			exercising: parseFloat(this.state.exercising.split(':')[0] * 60) + parseFloat(this.state.exercising.split(':')[1]),
-			detracting: parseFloat(this.state.detracting.split(':')[0] * 60) + parseFloat(this.state.detracting.split(':')[1]),
-			createdAt: this.state.createdAt.valueOf()
-		});
+
 	}
 
 	render() {
 		return (
 			<div>
 				<form onSubmit={this.onSubmit}>
-					<input 
+				{ this.state.error && <p>{this.state.error}</p> }
+					<input
 						type='text' 
-						placeholder='HH:mm' 
-						pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" 
-						id="24h"
+						placeholder='Add Activity'
 						autoFocus
-						value={this.state.reading}
-						onChange={this.onReadingChange}
+						value={this.state.addActivity}
+						onChange={this.onActivityChange}
 					/>
-					<input 
-						type='text' 
-						placeholder='HH:mm' 
-						pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" 
-						id="24h"
-						value={this.state.writing}
-						onChange={this.onWritingChange}
-					/>
-					<input 
-						type='text' 
-						placeholder='HH:mm'
-						pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" 
-						id="24h"
-						value={this.state.exercising}
-						onChange={this.onExercisingChange}
-					/>
-					<input 
-						type='text' 
-						placeholder='HH:mm'
-						pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" 
-						id="24h"
-						value={this.state.detracting}
-						onChange={this.onDetractingChange}
-					/>
-					<input type='text' placeholder='Date' />
+					<button onClick={this.addActivityInput}>Add Activity</button>
+				{this.state.activities.map((activity, index) =>
+						<ActivityInput
+							key={index}
+							index={index}
+							activity={activity}
+							onTimeSpentChange={this.onTimeSpentChange}
+							removeActivityInput={this.removeActivityInput}
+							checkTotalTime={this.checkTotalTime}
+						/>
+					)}
 					<button>Submit</button>
-				</form>
+				</form>	
 			</div>
 		)
 	}
 }
+
 
 

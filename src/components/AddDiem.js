@@ -7,7 +7,6 @@ export class AddDiem extends React.Component {
 	
 	onSubmit = (diem) => {
 		this.props.addDiem(diem);
-		console.log(diem);
 		this.props.history.push('/dashboard');
 	}
 

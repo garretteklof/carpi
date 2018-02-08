@@ -1,14 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import AddDiem from './AddDiem';
-import DiemList from './DiemList';
-
+import React from 'react'
+import DiemForm from './DiemForm'
 const Dashboard = () => (
 	<div>
 		This is the dashboard!
-		<Link to='/create'>Add Diem </Link>
-		<DiemList />
+		<DiemForm />
 	</div>
-);
+)
 
-export default Dashboard;
+export default Dashboard

@@ -1,10 +1,7 @@
 import React from 'react';
 
-const DiemListItem = ({id, reading, writing, exercising, detracting }) => (
+const DiemListItem = ({ id }) => (
 	<div>
-		{ reading }
-		{ writing }
-		{ exercising }
 		{ id }
 	</div>
 );

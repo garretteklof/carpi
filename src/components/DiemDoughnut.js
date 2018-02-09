@@ -25,20 +25,22 @@ const data = {
 
 export default class DiemDoughnut extends React.Component {
 
+	setColors = () => {
+		const remainderIndex = this.props.nameArray.lastIndexOf('remainder');
+		const remainderColor = '#CACFD6';
+		const colors = ['#FF6384','#36A2EB','#FFCE56','#b40cb8','#fd6996'];
+		if( remainderIndex !== -1) {
+			colors.splice(remainderIndex, 0, remainderColor);
+		}
+		return colors;
+	}
+
 	setData = (label, data) => ({
 		labels: label,
 		datasets: [{
 			data: data,
-			backgroundColor: [
-				'#FF6384',
-				'#36A2EB',
-				'#FFCE56'
-			],
-			hoverBackgroundColor: [
-				'#FF6384',
-				'#36A2EB',
-				'#FFCE56'
-			]
+			backgroundColor: this.setColors(),
+			hoverBackgroundColor: this.setColors()
 		}]
 	})
 

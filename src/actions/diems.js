@@ -2,13 +2,15 @@ import uuid from 'uuid';
 
 export const addDiem = ({
 	date = 0,
-	activities = []
+	activities = [],
+	remainder = 0
 } = {}) => ({
 	type: 'ADD_DIEM',
 	diem: {
 		id: uuid(),
 		date,
-		activities
+		activities,
+		remainder
 	}
 	});
 

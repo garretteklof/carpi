@@ -10,6 +10,7 @@ export default class DiemForm extends React.Component {
 		this.state = {
 			date: props.diem ? moment(props.diem.date) : moment(),
 			activities: props.diem ? props.diem.activities : [{ name: 'Sleeping', timeSpent: 8 },{name: 'Detracting', timeSpent: 16 }],
+			remainder: props.diem ? props.diem.remainder : 0,
 			addActivity: '',
 			calendarFocused: false,
 			step: 1,
@@ -75,7 +76,9 @@ export default class DiemForm extends React.Component {
 		if (totalTime > 24) {
 			// DO SOMETHNG (???)
 			console.log(totalTime);
-		} 
+		} else {
+			this.setState(() => ({ remainder: 24 - totalTime }));
+		}
 	}
 
 	onSubmit = (e) => {
@@ -88,7 +91,8 @@ export default class DiemForm extends React.Component {
 			this.setState(() => ({error: '', step: 1}));
 			this.props.onSubmit({
 				date: this.state.date.valueOf(),
-				activities: this.state.activities
+				activities: this.state.activities,
+				remainder: this.state.remainder
 			});
 		}
 	}

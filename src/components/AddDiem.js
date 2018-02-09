@@ -18,7 +18,6 @@ export class AddDiem extends React.Component {
 			this.props.history.push('/dashboard')
 		} else {
 			this.setState(() => ({error: 'There is an error'}))
-			console.log(index);
 		}
 	}
 

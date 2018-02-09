@@ -7,6 +7,8 @@ export default (state = diemsReducerDefaultState, action ) => {
 				...state,
 				action.diem
 			];
+		case 'REMOVE_DIEM':
+			return state.filter(({ id }) => id !== action.id );
 		case 'EDIT_DIEM':
 			return state.map((diem) => {
 				if (diem.id === action.id) {

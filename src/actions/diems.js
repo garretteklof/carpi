@@ -12,6 +12,11 @@ export const addDiem = ({
 	}
 	});
 
+export const removeDiem = ({ id } = {}) => ({
+	type: 'REMOVE_DIEM',
+	id
+});
+
 export const editDiem = (id, updates) => ({
 	type: 'EDIT_DIEM',
 	id,

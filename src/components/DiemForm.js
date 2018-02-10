@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import ActivityInput from './ActivityInput';
+import DiemDoughnut from './DiemDoughnut';
 
 export default class DiemForm extends React.Component {
 
@@ -137,6 +138,10 @@ export default class DiemForm extends React.Component {
 									checkTotalTime={this.checkTotalTime}
 								/>
 							)}
+						<DiemDoughnut 
+							activities={this.state.activities}
+							remainder={this.state.remainder}
+						/>
 						<button>Submit</button>
 					</div>
 				)}

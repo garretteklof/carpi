@@ -1,32 +1,21 @@
 import React from 'react';
 import Doughnut from 'react-chartjs-2';
 
-/*
-const data = {
-	labels: [
-		'Red',
-		'Blue',
-		'Yellow'
-	],
-	datasets: [{
-		data: [300, 50, 100],
-		backgroundColor: [
-		'#FF6384',
-		'#36A2EB',
-		'#FFCE56'
-		],
-		hoverBackgroundColor: [
-		'#FF6384',
-		'#36A2EB',
-		'#FFCE56'
-		]
-	}]
-}; */
-
 export default class DiemDoughnut extends React.Component {
 
+	nameToArray = (activities, remainder) => {
+		const nameArray = activities.map(({name}) => name);
+		return remainder > 0 ? [...nameArray, 'remainder'] : [...nameArray];
+	}
+	timeSpentToArray = (activities, remainder) => {
+		const timeSpentArray = activities.map(({timeSpent}) => timeSpent);
+		return remainder > 0 ? [...timeSpentArray, remainder] : [...timeSpentArray];
+	}
+
 	setColors = () => {
-		const remainderIndex = this.props.nameArray.lastIndexOf('remainder');
+		const act = this.props.activities;
+		const rem = this.props.remainder;
+		const remainderIndex = this.nameToArray(act, rem).lastIndexOf('remainder');
 		const remainderColor = '#CACFD6';
 		const colors = ['#FF6384','#36A2EB','#FFCE56','#b40cb8','#fd6996'];
 		if( remainderIndex !== -1) {
@@ -45,10 +34,12 @@ export default class DiemDoughnut extends React.Component {
 	})
 
 	render() {
+		const {activities, remainder} = this.props;
 		return (
 			<div>
 				<Doughnut
-					data={this.setData(this.props.nameArray, this.props.timeSpentArray)}
+					data={this.setData(this.nameToArray(activities,remainder), 
+						this.timeSpentToArray(activities, remainder))}
 					width={200}
 					height={200}
 					options={{

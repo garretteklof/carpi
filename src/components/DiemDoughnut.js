@@ -29,7 +29,7 @@ export default class DiemDoughnut extends React.Component {
 		const act = this.props.activities;
 		const rem = this.props.remainder;
 		const total = this.timeSpentToArray(act, rem).reduce((a,b) => a + b);
-		if (total > 24) {
+		if (total - rem > 24) {
 			return {
 				labels: ['> 24 Hrs'],
 				datasets: [{

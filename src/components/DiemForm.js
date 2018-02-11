@@ -36,18 +36,22 @@ export default class DiemForm extends React.Component {
 
 	addActivityInput = (e) => {
 		e.preventDefault();
-		const name = this.state.addActivity;
+		const name = this.state.addActivity.replace(/\w\S*/g, 
+			(name) => name.charAt(0).toUpperCase() + name.substr(1).toLowerCase());
 		if (!name) {
-			this.setState(() => ({ error: 'Can\'t be blank'}));
-		} else if (!name.toLowerCase().match(/ing\b/)) {
-			this.setState(() => ({ error: '*GRAMMAR POLICE* Please use a present participle [ word that ends in \'-ing\' ]'}));
-		}	else if (this.state.activities.length >= 5) {
-			this.setState(() => ({ error: 'Max of five'}));
+			this.setState(() => ({ error: 'Can\'t be blank!'}));
+		} else if (!name.match(/ing\b/)) {
+				this.setState(() => 
+					({ error: '🚨GRAMMAR POLICE 🚨-- Please use a present participle [ word that ends in \'-ing\' ]'}));
+		}	else if (this.state.activities.find((activity) => activity.name === name)) {
+				this.setState(() => ({ error: 'Already entered!'}));
+		} else if (this.state.activities.length >= 5) {
+				this.setState(() => ({ error: 'Max of five!'}));
 		} else {
-			this.setState({
-				activities: [...this.state.activities, { name, timeSpent: 0}],
-				addActivity: '',
-				error: ''
+				this.setState({
+					activities: [...this.state.activities, { name, timeSpent: 0}],
+					addActivity: '',
+					error: ''
 			});
 		}
 	}
@@ -55,7 +59,8 @@ export default class DiemForm extends React.Component {
 	onTimeSpentChange = (index) => (value) => {
 		const activities = [...this.state.activities];
 		activities[index].timeSpent = value;
-		this.setState(() => ({ activities }));
+		const remainder = 24 - this.totalTime();
+		this.setState(() => ({ activities, remainder }));
 	}
 
 	removeActivityInput = (index) => (e) => {
@@ -74,11 +79,12 @@ export default class DiemForm extends React.Component {
 
 	checkTotalTime = () => {
 		const totalTime = this.totalTime();
+		const remainder = 24 - totalTime;
 		if (totalTime > 24) {
 			// DO SOMETHNG (???)
 			console.log(totalTime);
 		} else {
-			this.setState(() => ({ remainder: 24 - totalTime }));
+			this.setState(() => ({ remainder }));
 		}
 	}
 

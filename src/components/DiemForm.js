@@ -14,7 +14,6 @@ export default class DiemForm extends React.Component {
 			remainder: props.diem ? props.diem.remainder : 0,
 			addActivity: '',
 			calendarFocused: false,
-			step: 1,
 			error: ''
 		}
 	}
@@ -66,8 +65,9 @@ export default class DiemForm extends React.Component {
 	removeActivityInput = (index) => (e) => {
 		e.preventDefault();
 		const activities = [...this.state.activities];
+		const remainder = this.state.remainder + activities[index].timeSpent;
 		activities.splice(index,1);
-		this.setState(() => ({ activities, error:''}));
+		this.setState(() => ({ activities, remainder, error:''}));
 	}
 
 	totalTime = () => {
@@ -84,7 +84,8 @@ export default class DiemForm extends React.Component {
 			// DO SOMETHNG (???)
 			console.log(totalTime);
 		} else {
-			this.setState(() => ({ remainder }));
+			 // DO SOMETHING (???)
+			console.log(totalTime);
 		}
 	}
 
@@ -95,7 +96,7 @@ export default class DiemForm extends React.Component {
 		} else if (this.totalTime() > 24 ) {
 			this.setState(() => ({error: 'Total time can\'t be greater than 24 hours'}));
 		} else {
-			this.setState(() => ({error: '', step: 1}));
+			this.setState(() => ({error: ''}));
 			this.props.onSubmit({
 				date: this.state.date.valueOf(),
 				activities: this.state.activities,
@@ -109,48 +110,38 @@ export default class DiemForm extends React.Component {
 			<div>
 				<form onSubmit={this.onSubmit}>
 				{ this.state.error && <p>{this.state.error}</p> }
-				{ this.props.error && <p>{this.props.error}</p> }
-				{this.state.step === 1 && ( 
-					<div>
-						<SingleDatePicker
-							date={this.state.date}
-							onDateChange={this.onDateChange}
-							focused={this.state.calendarFocused}
-							onFocusChange={this.onFocusChange}
-							numberOfMonths={1}
-							isOutsideRange={() => false}
-							block
+					<SingleDatePicker
+						date={this.state.date}
+						onDateChange={this.onDateChange}
+						focused={this.state.calendarFocused}
+						onFocusChange={this.onFocusChange}
+						numberOfMonths={1}
+						isOutsideRange={() => false}
+						block
+					/>
+					<input
+						type='text' 
+						placeholder='Add Activity'
+						autoFocus
+						value={this.state.addActivity}
+						onChange={this.onActivityChange}
+					/>
+					<button onClick={this.addActivityInput}>Add Activity</button>
+					{this.state.activities.map((activity, index) =>
+						<ActivityInput
+							key={index}
+							index={index}
+							activity={activity}
+							onTimeSpentChange={this.onTimeSpentChange}
+							removeActivityInput={this.removeActivityInput}
+							checkTotalTime={this.checkTotalTime}
 						/>
-						<button onClick={() => this.setState(() => ({step:2}))}>Next</button>
-					</div>
-				)}
-				{this.state.step === 2 && (
-					<div>
-						<input
-							type='text' 
-							placeholder='Add Activity'
-							autoFocus
-							value={this.state.addActivity}
-							onChange={this.onActivityChange}
-						/>
-						<button onClick={this.addActivityInput}>Add Activity</button>
-						{this.state.activities.map((activity, index) =>
-								<ActivityInput
-									key={index}
-									index={index}
-									activity={activity}
-									onTimeSpentChange={this.onTimeSpentChange}
-									removeActivityInput={this.removeActivityInput}
-									checkTotalTime={this.checkTotalTime}
-								/>
-							)}
-						<DiemDoughnut 
-							activities={this.state.activities}
-							remainder={this.state.remainder}
-						/>
-						<button>Submit</button>
-					</div>
-				)}
+					)}
+					<DiemDoughnut 
+						activities={this.state.activities}
+						remainder={this.state.remainder}
+					/>
+					<button>Submit</button>
 				</form>	
 			</div>
 		)

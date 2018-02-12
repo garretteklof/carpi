@@ -1,36 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DiemListItem from './DiemListItem';
+import selectDiems from '../selectors/diems';
 
-
-export class DiemList extends React.Component {
-
-	//timeSpentToArray = (activities) => activities.map(({timeSpent}) => timeSpent);
-
-	render() {
-		return (
-			<div>
-			{
-				(
-					this.props.diems.map((diem) => ( 
-						<DiemListItem 
-							key={diem.id} 
-							//timeSpentToArray={this.timeSpentToArray}
-							{...diem}
-						/>
-					))
-				)
-			}
-			
-			</div>
-		)
-	}
-} 
-
+export const DiemList = (props) => (
+	<div>
+			{props.diems.map((diem) => ( 
+				<DiemListItem 
+					key={diem.id} 
+					{...diem}
+				/>
+			))}	
+	</div>
+);
 
 const mapStateToProps = (state) => {
 	return {
-		diems: state.diems
+		diems: selectDiems(state.diems, state.filters)
 	};
 };
 

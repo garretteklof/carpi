@@ -117,7 +117,7 @@ export default class DiemForm extends React.Component {
 						onFocusChange={this.onFocusChange}
 						numberOfMonths={1}
 						isOutsideRange={() => false}
-						block
+						hideKeyboardShortcutsPanel
 					/>
 					<input
 						type='text' 

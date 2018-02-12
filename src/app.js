@@ -1,4 +1,4 @@
-import 'react-dates/initialize';
+import './lib/react-dates-styles';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -8,7 +8,6 @@ import { login, logout } from './actions/auth';
 import { firebase } from './firebase/firebase';
 import Loading from './components/Loading';
 import 'normalize.css/normalize.css';
-import 'react-dates/lib/css/_datepicker.css';
 import './styles/styles.scss';
 
 ReactDOM.render(<Loading />, document.getElementById('app'));

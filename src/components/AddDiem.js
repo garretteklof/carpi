@@ -19,7 +19,6 @@ export class AddDiem extends React.Component {
 		} else {
 			const id = this.props.diems[index].id;
 			this.props.editDiem(id, diem);
-			console.log(this.props.diems);
 			this.props.history.push('/dashboard');
 		}
 	}

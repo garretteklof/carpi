@@ -5,7 +5,7 @@ export default class DiemDoughnut extends React.Component {
 
 	nameToArray = (activities, remainder) => {
 		const nameToArray = activities.map(({name}) => name);
-		return remainder > 0 ? [...nameToArray, 'remainder'] : [...nameToArray];
+		return remainder > 0 ? [...nameToArray, 'unrecorded'] : [...nameToArray];
 	}
 	timeSpentToArray = (activities, remainder) => {
 		const timeSpentToArray = activities.map(({timeSpent}) => timeSpent);
@@ -15,7 +15,7 @@ export default class DiemDoughnut extends React.Component {
 	setColors = () => {
 		const act = this.props.activities;
 		const rem = this.props.remainder;
-		const remainderIndex = this.nameToArray(act, rem).lastIndexOf('remainder');
+		const remainderIndex = this.nameToArray(act, rem).lastIndexOf('unrecorded');
 		const remainderColor = '#CACFD6';
 		const colors = ['#FF6384','#36A2EB','#FFCE56','#b40cb8','#fd6996'];
 

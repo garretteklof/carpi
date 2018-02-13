@@ -19,7 +19,7 @@ export default class DiemListDoughnut extends React.Component {
 	createNameArray = (diems) => {
 		const remainder = this.calculateRemainder(diems);
 		const nameArray = this.consolidateDiemsToGroupArray(diems).map(({name}) => name);
-		return remainder > 0 ? [...nameArray, 'remainder'] : [...nameArray];
+		return remainder > 0 ? [...nameArray, 'unrecorded'] : [...nameArray];
 	}
 
 	createTimeSpentArray = (diems) => {
@@ -30,14 +30,15 @@ export default class DiemListDoughnut extends React.Component {
 
 
 	setColors = () => {
-		const remainderIndex = this.createNameArray(this.props.diems).lastIndexOf('remainder');
+		const remainderIndex = this.createNameArray(this.props.diems).lastIndexOf('unrecorded');
 		const remainderColor = '#CACFD6';
-		const colors = this.props.diems.map(() => (
+		const colors = this.createNameArray(this.props.diems).map(() => (
 			'#' + ("000000" + Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6)));
 		/* random color generator -- overkill and unneeded, just for development */
 		if ( remainderIndex !== -1) {
 			colors.splice(remainderIndex, 0, remainderColor);
 		}
+		console.log(colors);
 		return colors;
 	}
 

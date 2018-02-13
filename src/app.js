@@ -7,7 +7,6 @@ import configureStore from './store/configureStore';
 import { login, logout } from './actions/auth';
 import { firebase } from './firebase/firebase';
 import Loading from './components/Loading';
-import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 
 ReactDOM.render(<Loading />, document.getElementById('app'));

@@ -10,7 +10,7 @@ export default class DiemForm extends React.Component {
 		super(props);
 		this.state = {
 			date: props.diem ? moment(props.diem.date) : moment(),
-			activities: props.diem ? props.diem.activities : [{ name: 'Sleeping', timeSpent: 8 },{name: 'Detracting', timeSpent: 16 }],
+			activities: props.diem ? props.diem.activities : [{ name: 'Sleeping', timeSpent: 8 },{name: 'Procrastinating', timeSpent: 16 }],
 			remainder: props.diem ? props.diem.remainder : 0,
 			addActivity: '',
 			calendarFocused: false,
@@ -35,13 +35,15 @@ export default class DiemForm extends React.Component {
 
 	addActivityInput = (e) => {
 		e.preventDefault();
-		const name = this.state.addActivity.replace(/\w\S*/g, 
-			(name) => name.charAt(0).toUpperCase() + name.substr(1).toLowerCase());
+		const name = this.state.addActivity.trim().replace(/ +/g, ' ').replace(/\w\S*/g, 
+			(name) => name.charAt(0).toUpperCase() + name.substr(1).toLowerCase())
 		if (!name) {
 			this.setState(() => ({ error: 'Can\'t be blank!'}));
-		} else if (!name.match(/ing\b/)) {
+		} else if (!name.match(/^[ a-zA-Z0-9]{0,25}$/)) {
+				this.setState(() => ({ error: 'Please keep it concise with no special characters!'}));
+		} else if (!name.match(/^.*(ing\b|ing\b\s.*)$/)) {
 				this.setState(() => 
-					({ error: '🚨GRAMMAR POLICE 🚨-- Please use a present participle [ word that ends in \'-ing\' ]'}));
+				({ error: "🚨GRAMMAR POLICE 🚨 use a present participle! (ex. 'exercising', 'studying biology')"}));
 		}	else if (this.state.activities.find((activity) => activity.name === name)) {
 				this.setState(() => ({ error: 'Already entered!'}));
 		} else if (this.state.activities.length >= 5) {

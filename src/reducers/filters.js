@@ -2,7 +2,8 @@ import moment from 'moment';
 
 const filtersReducerDefaultState = {
 	startDate: moment().startOf('month'),
-	endDate: moment().endOf('month')
+	endDate: moment().endOf('month'),
+	activityText: ''
 };
 
 export default (state = filtersReducerDefaultState, action) => {
@@ -16,6 +17,11 @@ export default (state = filtersReducerDefaultState, action) => {
 			return {
 				...state,
 				endDate: action.endDate
+			};
+		case 'SET_ACTIVITY_TEXT':
+			return {
+				...state,
+				activityText: action.activityText
 			};
 		default:
 			return state;

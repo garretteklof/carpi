@@ -1,14 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import DashboardLevel from './DashboardLevel'
+import DiemListDoughnut from './DiemListDoughnut'
 import DiemList from './DiemList'
-import DiemListFilters from './DiemListFilters'
 
 const Dashboard = () => (
-	<div>
-		<Link to='/create'>Add Diem</Link>
-		<DiemListFilters />
-		<DiemList />
-	</div>
+	<section className='section'>
+		<div className='container'>
+			<DashboardLevel />
+			<div className='columns'>
+				<div className='column is-two-fifths'>
+					<DiemListDoughnut />
+				</div>
+				<div className='column'>
+					<DiemList />
+				</div>
+			</div>
+		</div>
+	</section>
 )
 
 export default Dashboard

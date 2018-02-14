@@ -1,24 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import DiemListItem from './DiemListItem';
-import { diemDateMatch } from '../selectors/diems';
-import DiemListDoughnut from './DiemListDoughnut';
+import selectDiems from '../selectors/diems';
 
-export const DiemList = (props) => (
+
+export const DiemList = ({diems}) => (
 	<div>
-			{/*{props.diems.map((diem) => ( 
+		{diems.map((diem) => ( 
 				<DiemListItem 
 					key={diem.id} 
 					{...diem}
 				/>
-			))}	*/}
-			<DiemListDoughnut diems={props.diems} />
+			))}
 	</div>
 );
 
 const mapStateToProps = (state) => {
 	return {
-		diems: diemDateMatch(state.diems, state.filters)
+		diems: selectDiems(state.diems, state.filters)
 	};
 };
 

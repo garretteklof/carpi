@@ -1,8 +1,10 @@
 import React from 'react';
 import Doughnut from 'react-chartjs-2';
+import { connect } from 'react-redux';
 import { groupData } from '../utils/utils';
+import selectDiems from '../selectors/diems';
 
-export default class DiemListDoughnut extends React.Component {
+export class DiemListDoughnut extends React.Component {
 
 	consolidateDiemsToGroupArray = (diems) => {
 		const allActivities = diems.map(({activities}) => activities);
@@ -38,7 +40,6 @@ export default class DiemListDoughnut extends React.Component {
 		if ( remainderIndex !== -1) {
 			colors.splice(remainderIndex, 0, remainderColor);
 		}
-		console.log(colors);
 		return colors;
 	}
 
@@ -56,17 +57,28 @@ export default class DiemListDoughnut extends React.Component {
 	render() {
 		const {diems} = this.props;
 		return (
-			<div>
+			<div className='doughnut-container'>
+				{ diems.length ? (
 				<Doughnut
 					data={this.setData(this.createNameArray(diems), 
 						this.createTimeSpentArray(diems))}
-					width={400}
-					height={400}
 					options={{
-						maintainAspectRatio: false
+						maintainAspectRatio: false,
+						legend: {
+							display: false
+						}
 					}}		
 				/>
+				) : (
+				<p> No diems </p>
+				)}
 			</div>
 		)
 	}
 }
+
+const mapStateToProps = (state) => ({
+	diems: selectDiems(state.diems, state.filters)
+});
+
+export default connect(mapStateToProps)(DiemListDoughnut);

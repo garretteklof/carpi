@@ -1,6 +1,12 @@
 @import '../../../node_modules/bulma/sass/utilities/initial-variables';
 @import '../../../node_modules/bulma/sass/utilities/functions';
 
+$body-size: 16px !default;
+@import url('https://fonts.googleapis.com/css?family=Arapey:400,400i');
+$family-serif: "Arapey", serif;
+$family-primary: $family-serif;
+
+
 @import '../../../node_modules/bulma/sass/utilities/derived-variables';
 
 @import '../../../node_modules/bulma/bulma';

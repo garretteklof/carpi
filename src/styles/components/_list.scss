@@ -1,0 +1,15 @@
+.list-item {
+	margin: 0;
+	padding: 25px;
+	border-bottom: 3px dotted #d3d3d3;
+	position: relative;
+	transition: background .5s ease;
+	&:hover {
+		background: #f7f7f7;
+	}
+}
+
+.list-item__date {
+	position: absolute;
+	bottom: 0;
+}

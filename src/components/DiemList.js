@@ -7,12 +7,15 @@ import selectDiems from '../selectors/diems';
 
 export const DiemList = ({diems}) => (
 	<div>
-		{diems.map((diem) => ( 
+		{diems.length === 0 ? (
+			<h4 className='subtitle is-4'>No diems.</h4>
+			) : (
+			diems.map((diem) => ( 
 				<DiemListItem 
 					key={diem.id} 
 					{...diem}
 				/>
-			))}
+		)))}
 	</div>
 );
 

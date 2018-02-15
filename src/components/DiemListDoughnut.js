@@ -26,10 +26,13 @@ export class DiemListDoughnut extends React.Component {
 
 	createTimeSpentArray = (diems) => {
 		const remainder = this.calculateRemainder(diems);
-		const timeSpentArray = this.consolidateDiemsToGroupArray(this.props.diems).map(({timeSpent}) => timeSpent);
+		const timeSpentArray = this.consolidateDiemsToGroupArray(diems).map(({timeSpent}) => timeSpent);
 		return remainder > 0 ? [...timeSpentArray, remainder] : [...timeSpentArray];
 	}
 
+	calculateActiveTime = (diems) => {
+		return this.createTimeSpentArray(diems).reduce((a,b) => a + b) - this.calculateRemainder(diems);
+	}
 
 	setColors = () => {
 		const remainderIndex = this.createNameArray(this.props.diems).lastIndexOf('unrecorded');
@@ -57,21 +60,20 @@ export class DiemListDoughnut extends React.Component {
 	render() {
 		const {diems} = this.props;
 		return (
-			<div className='doughnut-container'>
-				{ diems.length ? (
-				<Doughnut
-					data={this.setData(this.createNameArray(diems), 
-						this.createTimeSpentArray(diems))}
-					options={{
-						maintainAspectRatio: false,
-						legend: {
-							display: false
-						}
-					}}		
-				/>
-				) : (
-				<p> No diems </p>
-				)}
+			<div>
+				<div className='doughnut-container--list'>
+					<Doughnut
+						data={this.setData(this.createNameArray(diems), 
+							this.createTimeSpentArray(diems))}
+						options={{
+							maintainAspectRatio: false,
+							legend: {
+								display: false
+							}
+						}}		
+					/>
+				</div>
+				{ diems.length > 0 && <p className='has-text-centered'><span className='subtitle is-3'>{this.calculateActiveTime(diems)}</span> hrs (recorded)</p>}
 			</div>
 		)
 	}

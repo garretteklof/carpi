@@ -5,16 +5,15 @@ import DiemDoughnut from './DiemDoughnut';
 
 const DiemListItem = ({ id, activities, date, remainder }) => (
 	<Link to={`/edit/${id}`}>
-		<div>
-			<h2>{moment(date).format('MMMM Do, YYYY')}</h2>
-			{activities.map(({name, timeSpent}, i) => (
-				<p key={i}>{`${name} : ${timeSpent} hours`}</p>
-			))}
+		<div className='list-item is-clearfix'>
+			<p className='list-item__date subtitle is-4 is-pulled-left'>{moment(date).format('MMMM Do, YYYY')}</p>
+			<div className='doughnut-container is-pulled-right'>
+				<DiemDoughnut
+					activities={activities}
+					remainder={remainder}
+				/>
+			</div>
 		</div>
-		<DiemDoughnut
-			activities={activities}
-			remainder={remainder}
-		/>
 	</Link>
 );
 

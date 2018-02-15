@@ -53,17 +53,16 @@ export default class DiemDoughnut extends React.Component {
 	render() {
 		const {activities, remainder} = this.props;
 		return (
-			<div>
-				<Doughnut
-					data={this.setData(this.nameToArray(activities,remainder), 
-						this.timeSpentToArray(activities, remainder))}
-					width={200}
-					height={200}
-					options={{
-						maintainAspectRatio: false
-					}}		
-				/>
-			</div>
+			<Doughnut
+				data={this.setData(this.nameToArray(activities,remainder), 
+					this.timeSpentToArray(activities, remainder))}
+				options={{
+					maintainAspectRatio: false,
+					legend: {
+						position: 'left'
+					}
+				}}		
+			/>
 		)
 	}
 }

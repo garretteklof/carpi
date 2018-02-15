@@ -1,6 +1,13 @@
-.doughnut-container {
+ .doughnut-container {
+ 	position: relative;
+ 	margin: 0 auto;
+  height: 150px;
+  width: 300px;
+ }
+
+ .doughnut-container--list {
 	position: relative;
-  margin: 25px auto 0;
+  margin: 25px auto 10px;
   height: 316px;
   width: 100%;
  }

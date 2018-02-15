@@ -5,8 +5,9 @@ export default (diems, { startDate, endDate, activityText }) => {
 		const diemDate = moment(diem.date);
 		const startDateMatch = startDate ? startDate.isSameOrBefore(diemDate, 'day') : true;
 		const endDateMatch = endDate ? endDate.isSameOrAfter(diemDate, 'day') : true;
-		const textMatch = diem.activities.map(({ name }) => (
-			name.toLowerCase().includes(activityText.toLowerCase())));
-		return startDateMatch && endDateMatch && textMatch.includes(true);
+		const activityTextMatch = diem.activities.map(({ name }) => (
+			name.toLowerCase().includes(activityText.toLowerCase()))).includes(true);
+		const remainderMatch = diem.remainder ? 'unrecorded'.includes(activityText.toLowerCase()) : false;
+		return startDateMatch && endDateMatch && (activityTextMatch || remainderMatch);
 	}).sort((a,b) => a.date < b.date ? 1 : -1);
 };

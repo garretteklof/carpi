@@ -11,6 +11,12 @@ const DiemListItem = ({ id, activities, date, remainder }) => (
 				<DiemDoughnut
 					activities={activities}
 					remainder={remainder}
+					options={{
+						maintainAspectRatio: false,
+						legend: {
+							position: 'left'
+						}
+					}}
 				/>
 			</div>
 		</div>

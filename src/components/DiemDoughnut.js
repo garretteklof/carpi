@@ -28,7 +28,7 @@ export default class DiemDoughnut extends React.Component {
 	setData = (label, data) => {
 		const act = this.props.activities;
 		const rem = this.props.remainder;
-		const total = this.timeSpentToArray(act, rem).reduce((a,b) => a + b);
+		const total = this.timeSpentToArray(act, rem).reduce((a,b) => a + b, 0);
 		if (total - rem > 24) {
 			return {
 				labels: ['> 24 Hrs'],
@@ -56,12 +56,7 @@ export default class DiemDoughnut extends React.Component {
 			<Doughnut
 				data={this.setData(this.nameToArray(activities,remainder), 
 					this.timeSpentToArray(activities, remainder))}
-				options={{
-					maintainAspectRatio: false,
-					legend: {
-						position: 'left'
-					}
-				}}		
+				options={this.props.options}		
 			/>
 		)
 	}

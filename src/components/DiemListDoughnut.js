@@ -3,6 +3,7 @@ import Doughnut from 'react-chartjs-2';
 import { connect } from 'react-redux';
 import { groupData } from '../utils/utils';
 import selectDiems from '../selectors/diems';
+import { setActivityLine } from '../actions/filters';
 
 export class DiemListDoughnut extends React.Component {
 
@@ -57,12 +58,24 @@ export class DiemListDoughnut extends React.Component {
 		};
 	}
 
+	clickOnActivity = (chartElement) => {
+		const chart = this.refs.chart.chartInstance;
+		const index = chartElement[0]._index;
+		const datasetIndex = chartElement[0]._datasetIndex;
+    const label = chart.data.labels[index];
+    const value = chart.data.datasets[datasetIndex].data[index];
+		this.props.setActivityLine(label);
+		this.props.history.push('/line');
+	}
+
 	render() {
 		const {diems} = this.props;
 		return (
 			<div>
 				<div className='doughnut-container--list'>
 					<Doughnut
+						ref='chart'
+						getElementAtEvent={this.clickOnActivity}	
 						data={this.setData(this.createNameArray(diems), 
 							this.createTimeSpentArray(diems))}
 						options={{
@@ -70,7 +83,7 @@ export class DiemListDoughnut extends React.Component {
 							legend: {
 								display: false
 							}
-						}}		
+						}}
 					/>
 				</div>
 				{ diems.length > 0 && <p className='has-text-centered'><span className='subtitle is-3'>{this.calculateActiveTime(diems)}</span> hrs (recorded)</p>}
@@ -83,4 +96,8 @@ const mapStateToProps = (state) => ({
 	diems: selectDiems(state.diems, state.filters)
 });
 
-export default connect(mapStateToProps)(DiemListDoughnut);
+const mapDispatchToProps = (dispatch) => ({
+	setActivityLine: (activity) => dispatch(setActivityLine(activity))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DiemListDoughnut);

@@ -5,6 +5,7 @@ import LoginPage from '../components/LoginPage';
 import Dashboard from '../components/Dashboard';
 import AddDiem from '../components/AddDiem';
 import EditDiem from '../components/EditDiem';
+import ActivityLine from '../components/ActivityLine';
 import NotFoundPage from '../components/NotFoundPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
@@ -19,6 +20,7 @@ const AppRouter = () => (
 				<PrivateRoute path='/dashboard' component={Dashboard} />
 				<PrivateRoute path='/create' component={AddDiem} />
 				<PrivateRoute path='/edit/:id' component={EditDiem} />
+				<PrivateRoute path='/line' component={ActivityLine} />
 				<Route component={NotFoundPage} />
 			</Switch>
 		</div>

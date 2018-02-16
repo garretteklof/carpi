@@ -4,13 +4,13 @@ import DashboardLevel from './DashboardLevel'
 import DiemListDoughnut from './DiemListDoughnut'
 import DiemList from './DiemList'
 
-const Dashboard = () => (
+const Dashboard = (props) => (
 	<section className='section'>
 		<div className='container'>
 			<DashboardLevel />
 			<div className='columns'>
 				<div className='column is-two-fifths'>
-					<DiemListDoughnut />
+					<DiemListDoughnut history={props.history}/>
 				</div>
 				<div className='column'>
 					<DiemList />

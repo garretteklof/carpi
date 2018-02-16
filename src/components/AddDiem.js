@@ -17,9 +17,7 @@ export class AddDiem extends React.Component {
 			this.props.startAddDiem(diem);
 			this.props.history.push('/dashboard');
 		} else {
-			const id = this.props.diems[index].id;
-			this.props.editDiem(id, diem);
-			this.props.history.push('/dashboard');
+			this.setState(() => ({ error: 'Already recorded this date!'}));
 		}
 	}
 
@@ -27,7 +25,7 @@ export class AddDiem extends React.Component {
 		return (
 			<div className='section'>
 				<div className='container'>
-					<DiemForm onSubmit={this.onSubmit} />
+					<DiemForm onSubmit={this.onSubmit} error={this.state.error} />
 				</div>
 			</div>
 		)
@@ -40,7 +38,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 	startAddDiem: (diem) => dispatch(startAddDiem(diem)),
-	editDiem: (id, diem) => dispatch(editDiem(id, diem))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddDiem);

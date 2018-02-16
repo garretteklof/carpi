@@ -118,6 +118,7 @@ export default class DiemForm extends React.Component {
 				<div className='column is-half'>
 					<form onSubmit={this.onSubmit}>
 					{ this.state.error && <p>{this.state.error}</p> }
+					{ this.props.error && <p>{this.props.error}</p> }
 						<div className='field'>
 							<div className='control'>
 								<SingleDatePicker

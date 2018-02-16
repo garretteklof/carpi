@@ -43,3 +43,13 @@ export const editDiem = (id, updates) => ({
 	id,
 	updates
 });
+
+export const startEditDiem = (id, updates) => {
+	return (dispatch, getState) => {
+		const uid = getState().auth.uid;
+		return database.ref(`users/${uid}/diems/${id}`).update(updates)
+			.then(() => {
+				dispatch(editDiem(id, updates));
+		});
+	};
+};

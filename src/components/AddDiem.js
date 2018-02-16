@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import DiemForm from './DiemForm';
-import { startAddDiem, editDiem } from '../actions/diems';
+import { startAddDiem } from '../actions/diems';
 
 export class AddDiem extends React.Component {
 

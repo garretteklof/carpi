@@ -53,3 +53,24 @@ export const startEditDiem = (id, updates) => {
 		});
 	};
 };
+
+export const setDiems = (diems) => ({
+	type: 'SET_DIEMS',
+	diems
+});
+
+export const startSetDiems = () => {
+	return (dispatch, getState) => {
+		const uid = getState().auth.uid;
+		return database.ref(`users/${uid}/diems`).once('value').then((snapshot) => {
+			const diems = [];
+			snapshot.forEach((childSnapshot) => {
+				diems.push({
+					id: childSnapshot.key,
+					...childSnapshot.val()
+				});
+			});
+			dispatch(setDiems(diems));  
+		});
+	};
+};

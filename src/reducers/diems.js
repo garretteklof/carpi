@@ -20,6 +20,8 @@ export default (state = diemsReducerDefaultState, action ) => {
 					return diem;
 				}
 			});
+		case 'SET_DIEMS':
+			return action.diems;
 		default:
 			return state;
 	}

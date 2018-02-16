@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import AppRouter, { history } from './routes/AppRouter';
 import configureStore from './store/configureStore';
+import { startSetDiems } from './actions/diems';
 import { login, logout } from './actions/auth';
 import { firebase } from './firebase/firebase';
 import Loading from './components/Loading';
@@ -30,8 +31,10 @@ const renderApp = () => {
 firebase.auth().onAuthStateChanged((user) => {
 	if (user) {
 		store.dispatch(login(user.uid));
-		renderApp();
-		history.push('/dashboard');
+		store.dispatch(startSetDiems()).then(() => {
+			renderApp();
+			history.push('/dashboard');
+		});
 	} else {
 		store.dispatch(logout());
 		renderApp();

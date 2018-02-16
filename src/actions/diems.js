@@ -1,18 +1,28 @@
-import uuid from 'uuid';
+import database from '../firebase/firebase';
 
-export const addDiem = ({
-	date = 0,
-	activities = [],
-	remainder = 0
-} = {}) => ({
+export const addDiem = (diem) => ({
 	type: 'ADD_DIEM',
-	diem: {
-		id: uuid(),
-		date,
-		activities,
-		remainder
-	}
-	});
+	diem
+});
+
+
+export const startAddDiem = (diemData = {}) => {
+	return (dispatch, getState) => {
+		const uid = getState().auth.uid;
+		const {
+			date = 0,
+			activities = [],
+			remainder = 0
+		} = diemData;
+		const diem = { date, activities, remainder };
+		return database.ref(`users/${uid}/diems`).push(diem).then((ref) => {
+			dispatch(addDiem({
+				id: ref.key,
+				...diem
+			}));
+		});
+	};
+};
 
 export const removeDiem = ({ id } = {}) => ({
 	type: 'REMOVE_DIEM',

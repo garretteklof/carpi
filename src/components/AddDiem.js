@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import DiemForm from './DiemForm';
-import { addDiem, editDiem } from '../actions/diems';
+import { startAddDiem, editDiem } from '../actions/diems';
 
 export class AddDiem extends React.Component {
 
@@ -14,7 +14,7 @@ export class AddDiem extends React.Component {
 		const index = this.props.diems.findIndex((storeDiem) => (
 			moment(storeDiem.date).isSame(moment(diem.date), 'day')));
 		if (index === -1) {
-			this.props.addDiem(diem);
+			this.props.startAddDiem(diem);
 			this.props.history.push('/dashboard');
 		} else {
 			const id = this.props.diems[index].id;
@@ -39,7 +39,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	addDiem: (diem) => dispatch(addDiem(diem)),
+	startAddDiem: (diem) => dispatch(startAddDiem(diem)),
 	editDiem: (id, diem) => dispatch(editDiem(id, diem))
 });
 

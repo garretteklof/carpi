@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeDiem, editDiem } from '../actions/diems';
+import { startRemoveDiem, editDiem } from '../actions/diems';
 import DiemForm from './DiemForm';
 
 export class EditDiem extends React.Component {
@@ -9,7 +9,7 @@ export class EditDiem extends React.Component {
 		this.props.history.push('/');
 	}
 	onRemove = () => {
-		this.props.removeDiem({id: this.props.diem.id});
+		this.props.startRemoveDiem({id: this.props.diem.id});
 		this.props.history.push('/');
 	}
 	render() {
@@ -26,7 +26,7 @@ const mapStateToProps = (state, props) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
 	editDiem: (id, diem) => dispatch(editDiem(id, diem)),
-	removeDiem: (diem) => dispatch(removeDiem(diem))
+	startRemoveDiem: (diem) => dispatch(startRemoveDiem(diem))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditDiem);

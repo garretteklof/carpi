@@ -29,6 +29,15 @@ export const removeDiem = ({ id } = {}) => ({
 	id
 });
 
+export const startRemoveDiem = ({ id } = {}) => {
+	return (dispatch, getState) => {
+		const uid = getState().auth.uid;
+		return database.ref(`users/${uid}/diems/${id}`).remove().then(() => {
+			dispatch(removeDiem({id}));
+		});
+	};
+};
+
 export const editDiem = (id, updates) => ({
 	type: 'EDIT_DIEM',
 	id,

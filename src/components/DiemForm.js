@@ -168,6 +168,11 @@ export default class DiemForm extends React.Component {
 							<p className='control'>
     						<a className='button is-light' onClick={this.resetState}>Clear</a>
     					</p>
+    					{ this.props.diem && (
+    						<p className='control'>
+    							<a className='button is-danger' onClick={this.props.onRemove}>Delete</a>
+    						</p>
+    					)}
 						</div>
 					</form>
 				</div>

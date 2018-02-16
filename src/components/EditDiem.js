@@ -14,9 +14,10 @@ export class EditDiem extends React.Component {
 	}
 	render() {
 		return (
-			<div>
-				<button onClick={this.onRemove}>Remove</button>
-				<DiemForm onSubmit={this.onSubmit} diem={this.props.diem} />
+			<div className='section'>
+				<div className='container'>
+					<DiemForm onSubmit={this.onSubmit} diem={this.props.diem} onRemove={this.onRemove} />
+				</div>
 			</div>
 		)
 	}

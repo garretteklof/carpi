@@ -65,7 +65,7 @@ export class DiemListDoughnut extends React.Component {
     const label = chart.data.labels[index];
     const value = chart.data.datasets[datasetIndex].data[index];
 		this.props.setActivityLine(label);
-		this.props.history.push('/line');
+		this.props.history.push(`/line/${label.toLowerCase()}`);
 	}
 
 	render() {

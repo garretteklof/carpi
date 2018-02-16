@@ -1,0 +1,21 @@
+
+.slider {
+	padding: 10px 0 15px;
+	width: 100%;
+}
+
+.slider--track {
+	height: 50px;
+}
+
+.slider--delete {
+	padding-bottom: 20px;
+	text-align: right;
+	width: 100%;
+}
+.slider--level {
+	@extend .level;
+	> label, p {
+		margin: 0 !important;
+	}
+}

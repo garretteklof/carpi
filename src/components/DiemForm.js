@@ -8,20 +8,23 @@ export default class DiemForm extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
+		this.defaultState = {
 			date: props.diem ? moment(props.diem.date) : moment(),
 			activities: props.diem ? props.diem.activities : [{ name: 'Sleeping', timeSpent: 8 },{name: 'Procrastinating', timeSpent: 16 }],
 			remainder: props.diem ? props.diem.remainder : 0,
 			addActivity: '',
 			calendarFocused: false,
 			error: ''
-		}
+		};
+		this.state = this.defaultState;
+	}
+
+	resetState = () => {
+		this.setState(() => ({...this.defaultState, date: null, activities: [], remainder: 24}));
 	}
 
 	onDateChange = (date) => {
-		if (date) {
-			this.setState(() => ( { date }));
-		}
+		this.setState(() => ( { date }));
 	}
 
 	onFocusChange = ({ focused }) => {
@@ -97,6 +100,8 @@ export default class DiemForm extends React.Component {
 			this.setState(() => ({error: 'Need at least one activity'}));
 		} else if (this.totalTime() > 24 ) {
 			this.setState(() => ({error: 'Total time can\'t be greater than 24 hours'}));
+		} else if (!this.state.date) {
+			this.setState(() => ({error: 'Date can\'t be blank'}));
 		} else {
 			this.setState(() => ({error: ''}));
 			this.props.onSubmit({
@@ -109,42 +114,76 @@ export default class DiemForm extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<form onSubmit={this.onSubmit}>
-				{ this.state.error && <p>{this.state.error}</p> }
-					<SingleDatePicker
-						date={this.state.date}
-						onDateChange={this.onDateChange}
-						focused={this.state.calendarFocused}
-						onFocusChange={this.onFocusChange}
-						numberOfMonths={1}
-						isOutsideRange={() => false}
-						hideKeyboardShortcutsPanel
-					/>
-					<input
-						type='text' 
-						placeholder='Add Activity'
-						autoFocus
-						value={this.state.addActivity}
-						onChange={this.onActivityChange}
-					/>
-					<button onClick={this.addActivityInput}>Add Activity</button>
-					{this.state.activities.map((activity, index) =>
-						<ActivityInput
-							key={index}
-							index={index}
-							activity={activity}
-							onTimeSpentChange={this.onTimeSpentChange}
-							removeActivityInput={this.removeActivityInput}
-							checkTotalTime={this.checkTotalTime}
+			<div className='columns'>
+				<div className='column is-half'>
+					<form onSubmit={this.onSubmit}>
+					{ this.state.error && <p>{this.state.error}</p> }
+						<div className='field'>
+							<div className='control'>
+								<SingleDatePicker
+									date={this.state.date}
+									onDateChange={this.onDateChange}
+									focused={this.state.calendarFocused}
+									onFocusChange={this.onFocusChange}
+									numberOfMonths={1}
+									isOutsideRange={() => false}
+									showClearDate
+									hideKeyboardShortcutsPanel
+									block
+								/>
+							</div>
+						</div>
+						<div className='field is-grouped'>
+							<p className='control is-expanded'>
+								<input
+									type='text' 
+									placeholder='Add Activity'
+									className='input'
+									autoFocus
+									value={this.state.addActivity}
+									onChange={this.onActivityChange}
+								/>
+							</p>
+							<p className='control'>
+								<button className='button is-info' onClick={this.addActivityInput}>
+									Add Activity
+								</button>
+							</p>
+						</div>
+						{this.state.activities.map((activity, index) =>
+							<ActivityInput
+								key={index}
+								index={index}
+								activity={activity}
+								onTimeSpentChange={this.onTimeSpentChange}
+								removeActivityInput={this.removeActivityInput}
+								checkTotalTime={this.checkTotalTime}
+							/>
+						)}
+						<div className='field is-grouped is-grouped-centered'>
+							<p className='control'>
+								<button className='button is-primary'>Submit</button>
+							</p>
+							<p className='control'>
+    						<a className='button is-light' onClick={this.resetState}>Clear</a>
+    					</p>
+						</div>
+					</form>
+				</div>
+				<div className='column is-half'>
+					<div className='doughnut-container--form'>
+						<DiemDoughnut 
+							activities={this.state.activities}
+							remainder={this.state.remainder}
+							options={{
+								maintainAspectRatio: false,
+								legend: {
+									position: 'bottom'
+								}
+							}}
 						/>
-					)}
-					<DiemDoughnut 
-						activities={this.state.activities}
-						remainder={this.state.remainder}
-					/>
-					<button>Submit</button>
-				</form>	
+					</div>
+				</div>
 			</div>
 		)
 	}

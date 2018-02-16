@@ -25,8 +25,10 @@ export class AddDiem extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<DiemForm onSubmit={this.onSubmit} />
+			<div className='section'>
+				<div className='container'>
+					<DiemForm onSubmit={this.onSubmit} />
+				</div>
 			</div>
 		)
 	}

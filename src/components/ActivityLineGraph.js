@@ -40,7 +40,7 @@ export class ActivityLineGraph extends React.Component {
 
   render() {
     return (
-      <div className='section'>
+      <section className='section'>
         <div className='container'>
           <p className='subtitle is-2 has-text-centered'>{this.props.filters.activityGraph}</p>
           <p className='subtitle is-4 has-text-centered'>{`
@@ -92,7 +92,7 @@ export class ActivityLineGraph extends React.Component {
             }}
           />
         </div>
-      </div>
+      </section>
     );
   }
 }

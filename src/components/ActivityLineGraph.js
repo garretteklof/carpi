@@ -42,6 +42,11 @@ export class ActivityLineGraph extends React.Component {
     return (
       <div className='section'>
         <div className='container'>
+          <p className='subtitle is-2 has-text-centered'>{this.props.filters.activityGraph}</p>
+          <p className='subtitle is-4 has-text-centered'>{`
+            ${this.props.filters.startDate.format('MMMM DD, YYYY')} - 
+            ${this.props.filters.endDate.format('MMMM DD, YYYY')}`}
+          </p>
           <Line 
             data={{
               labels: this.createDateAxis(this.props.filters),

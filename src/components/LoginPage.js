@@ -1,16 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { startLogin } from '../actions/auth';
 
 export const LoginPage = ({startLogin}) => (
 	<section className='hero is-primary is-fullheight'>
 		<div className='hero-head'>
-			<nav className="navbar">
+			<nav className="navbar is-transparent">
       <div className="container">
         <div className="navbar-brand">
-          <a className="navbar-item">
+          <Link className="navbar-item" to='/'>
             <img src='/images/carpi-white.svg' alt='carpi' width='112' height='28' />
-          </a>
+          </Link>
         </div>
         <div className="navbar-menu">
           <div className="navbar-end">

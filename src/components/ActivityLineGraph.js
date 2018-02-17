@@ -5,7 +5,7 @@ import moment from 'moment';
 import selectDiems from '../selectors/diems';
 
 
-export class ActivityLine extends React.Component {
+export class ActivityLineGraph extends React.Component {
 
   createDateAxis = ({startDate, endDate}) => {
     const days = [];
@@ -17,11 +17,22 @@ export class ActivityLine extends React.Component {
     return days;
   }
 
-  createHoursAxis = (diems, { activityLine }) => {
+  createHoursAxis = (diems, { activityGraph }) => {
     const isolateActivity = diems.map(({activities}) => 
-      activities.filter((activity) => activity.name === activityLine));
+      activities.filter((activity) => activity.name === activityGraph));
     const flattenIt = [].concat(...isolateActivity);
     return flattenIt.map(({timeSpent}) => timeSpent);
+  }
+
+  createDataPoints = (diems, { activityGraph }) => {
+    const coordinates = diems.map(({activities, date}) => {
+      const activity = activities.filter((activity) => activity.name === activityGraph);
+      if (activity.length > 0) {
+        const value = activity.map(({timeSpent}) => timeSpent);
+        return {x: date, y: value[0]};
+      }
+    });
+    return coordinates.filter((coordinate) => coordinate !== undefined);
   }
 
   setData = (labels, data) => {
@@ -42,7 +53,7 @@ export class ActivityLine extends React.Component {
             labels: this.createDateAxis(this.props.filters),
             datasets: [
               {
-                label: this.props.filters.activityLine,
+                label: this.props.filters.activityGraph,
                 fill: false,
                 lineTension: 0.1,
                 backgroundColor: 'rgba(75,192,192,0.4)',
@@ -60,7 +71,7 @@ export class ActivityLine extends React.Component {
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: this.createHoursAxis(this.props.diems, this.props.filters)
+                data: this.createDataPoints(this.props.diems, this.props.filters)
               }
             ]
           }}
@@ -91,4 +102,4 @@ const mapStateToProps = (state) => ({
   filters: state.filters
 });
 
-export default connect(mapStateToProps)(ActivityLine);
+export default connect(mapStateToProps)(ActivityLineGraph);

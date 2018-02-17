@@ -3,7 +3,7 @@ import Doughnut from 'react-chartjs-2';
 import { connect } from 'react-redux';
 import { groupData } from '../utils/utils';
 import selectDiems from '../selectors/diems';
-import { setActivityLine } from '../actions/filters';
+import { setActivityGraph } from '../actions/filters';
 
 export class DiemListDoughnut extends React.Component {
 
@@ -58,14 +58,19 @@ export class DiemListDoughnut extends React.Component {
 		};
 	}
 
-	clickOnActivity = (chartElement) => {
+	graphActivity = (chartElement) => {
 		const chart = this.refs.chart.chartInstance;
 		const index = chartElement[0]._index;
 		const datasetIndex = chartElement[0]._datasetIndex;
     const label = chart.data.labels[index];
     const value = chart.data.datasets[datasetIndex].data[index];
-		this.props.setActivityLine(label);
-		this.props.history.push(`/line/${label.toLowerCase()}`);
+		const isolateActivity = this.props.diems.map(({activities}) => 
+    	activities.filter(({name}) => name === label));
+   	const activityCount = [].concat(...isolateActivity).length;
+    if (activityCount> 1) {
+    	this.props.setActivityGraph(label);
+			this.props.history.push(`/graph/${label.toLowerCase()}`);
+    }
 	}
 
 	render() {
@@ -75,7 +80,7 @@ export class DiemListDoughnut extends React.Component {
 				<div className='doughnut-container--list'>
 					<Doughnut
 						ref='chart'
-						getElementAtEvent={this.clickOnActivity}	
+						getElementAtEvent={this.graphActivity}	
 						data={this.setData(this.createNameArray(diems), 
 							this.createTimeSpentArray(diems))}
 						options={{
@@ -97,7 +102,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	setActivityLine: (activity) => dispatch(setActivityLine(activity))
+	setActivityGraph: (activity) => dispatch(setActivityGraph(activity))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DiemListDoughnut);

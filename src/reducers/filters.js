@@ -24,10 +24,10 @@ export default (state = filtersReducerDefaultState, action) => {
 				...state,
 				activityText: action.activityText
 			};
-		case 'SET_ACTIVITY_LINE':
+		case 'SET_ACTIVITY_GRAPH':
 			return {
 				...state,
-				activityLine: action.activity
+				activityGraph: action.activity
 			}
 		default:
 			return state;

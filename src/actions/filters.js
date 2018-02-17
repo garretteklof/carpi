@@ -13,7 +13,7 @@ export const setActivityText = (activityText = '') => ({
 	activityText
 });
 
-export const setActivityLine = (activity) => ({
-	type: 'SET_ACTIVITY_LINE',
+export const setActivityGraph = (activity) => ({
+	type: 'SET_ACTIVITY_GRAPH',
 	activity
 });

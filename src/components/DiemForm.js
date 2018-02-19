@@ -22,7 +22,7 @@ export default class DiemForm extends React.Component {
 			addActivityText: '',
 			addActivityCat: 'Contributor',
 			calendarFocused: false,
-			error: ''
+			error: []
 		};
 		this.state = this.defaultState;
 	}
@@ -32,7 +32,8 @@ export default class DiemForm extends React.Component {
 	}
 
 	onDateChange = (date) => {
-		this.setState(() => ( { date }));
+		const error = update(this.state.error, {date: {$set: ''}});
+		this.setState(() => ( { date, error }));
 	}
 
 	onFocusChange = ({ focused }) => {
@@ -55,22 +56,28 @@ export default class DiemForm extends React.Component {
 		const name = this.state.addActivityText.trim().replace(/ +/g, ' ').replace(/\w\S*/g, 
 			(name) => name.charAt(0).toUpperCase() + name.substr(1).toLowerCase());
 		if (!name) {
-			this.setState(() => ({ error: 'Can\'t be blank!'}));
+			const error = update(this.state.error, {input: {$set: 'Can\'t be blank!'}});
+			this.setState(() => ({ error }));
 		} else if (!name.match(/^[ a-zA-Z0-9]{0,25}$/)) {
-				this.setState(() => ({ error: 'Please keep it concise with no special characters!'}));
+			const error = update(this.state.error, {input: 
+				{$set: 'Please keep it concise with no special characters!'}});
+				this.setState(() => ({ error }));
 		} else if (!name.match(/^.*(ing\b|ing\b\s.*)$/)) {
-				this.setState(() => 
-				({ error: "🚨GRAMMAR POLICE 🚨 use a present participle! (ex. 'exercising', 'studying biology')"}));
+			const error = update(this.state.error, {input: 
+				{$set: "🚨GRAMMAR POLICE 🚨 use a present participle! (ex. 'exercising', 'studying biology')"}});
+				this.setState(() => ({ error }));
 		}	else if (this.state.activities.find((activity) => activity.name === name)) {
-				this.setState(() => ({ error: 'Already entered!'}));
+				const error = update(this.state.error, {input: {$set: 'Already entered!'}});
+				this.setState(() => ({ error }));
 		} else if (this.state.activities.length >= 5) {
-				this.setState(() => ({ error: 'Max of five!'}));
+				const error = update(this.state.error, {input: {$set: 'Max of five!'}});
+				this.setState(() => ({ error }));
 		} else {
 			this.setState({
 				activities: [...this.state.activities, { name, category, timeSpent: 0}],
 				addActivityCat: 'Contributor',
 				addActivityText: '',
-				error: ''
+				error: []
 			});
 		}
 	}
@@ -85,38 +92,42 @@ export default class DiemForm extends React.Component {
 
 	onTimeSpentChange = (index) => (value) => {
 		const activities = update([...this.state.activities], {[index]: {timeSpent: {$set: value}}});
-		const remainder = 24 - this.totalTime();
-		this.setState(() => ({ remainder, activities }));
+		this.setState(({ activities }), () => {
+			const totalTime = this.totalTime();
+			const remainder = 24 - totalTime;
+			if (totalTime > 24) {
+				const error = update(this.state.error, {doughnut: {$set: '>24 Hours!'}});
+				this.setState(() => ({ remainder, error }));
+			} else {
+				this.setState(() => ({ remainder, error: [] }));
+			}
+		});
 	}
-
 
 	totalTime = () => {
 		if (this.state.activities.length > 0) {
-			return this.state.activities.map((activity) => 
-				activity.timeSpent).reduce((a,b) => a + b);
-		}
-	}
-
-	checkTotalTime = () => {
-		const totalTime = this.totalTime();
-		const remainder = 24 - totalTime;
-		if (totalTime > 24) {
-			// DO SOMETHNG (???)
-		} else {
-			 // DO SOMETHING (???)
+			return this.state.activities.map(({timeSpent}) => timeSpent).reduce((a,b) => a + b);
 		}
 	}
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		if (this.state.activities.length === 0) {
-			this.setState(() => ({error: 'Need at least one activity'}));
+		const index = this.props.diems.findIndex((diem) => (
+			moment(diem.date).isSame(moment(this.state.date), 'day')));
+		if (index !== -1) {
+			const error = update(this.state.error, {date: {$set: 'Already recorded this date!'}});
+			this.setState(() => ({ error }));
+		} else if (this.state.activities.length === 0) {
+			const error = update(this.state.error, {input: {$set: 'Need at least one activity'}});
+			this.setState(() => ({ error }));
 		} else if (this.totalTime() > 24 ) {
-			this.setState(() => ({error: 'Total time can\'t be greater than 24 hours'}));
+			const error = update(this.state.error, {doughnut: {$set: 'Total time can\'t be greater than 24 hours'}});
+			this.setState(() => ({ error }));
 		} else if (!this.state.date) {
-			this.setState(() => ({error: 'Date can\'t be blank'}));
-		} else {
-			this.setState(() => ({error: ''}));
+			const error = update(this.state.error, {date: {$set: 'Date can\'t be blank'}});
+			this.setState(() => ({ error }));
+		}	else {
+			this.setState(() => ({error: []}));
 			this.props.onSubmit({
 				date: this.state.date.valueOf(),
 				activities: this.state.activities,
@@ -130,8 +141,6 @@ export default class DiemForm extends React.Component {
 			<div className='columns'>
 				<div className='column is-half'>
 					<form onSubmit={this.onSubmit}>
-					{ this.state.error && <p>{this.state.error}</p> }
-					{ this.props.error && <p>{this.props.error}</p> }
 						<div className='field'>
 							<div className='control'>
 								<SingleDatePicker
@@ -146,6 +155,7 @@ export default class DiemForm extends React.Component {
 									block
 								/>
 							</div>
+							{ this.state.error.date && <p className='has-text-danger'>{this.state.error.date}</p> }
 						</div>
 						<div className='field is-grouped'>
 							<p className='control is-expanded'>
@@ -173,6 +183,7 @@ export default class DiemForm extends React.Component {
 								</button>
 							</p>
 						</div>
+						{this.state.error.input && <p className='has-text-danger'>{this.state.error.input}</p>}
 						<div className='slider--box'>
 							{this.state.activities.map((activity, index) =>
 								<ActivityInput
@@ -181,7 +192,6 @@ export default class DiemForm extends React.Component {
 									activity={activity}
 									onTimeSpentChange={this.onTimeSpentChange}
 									removeActivityInput={this.removeActivityInput}
-									checkTotalTime={this.checkTotalTime}
 								/>
 							)}
 						</div>
@@ -213,6 +223,7 @@ export default class DiemForm extends React.Component {
 							}}
 						/>
 					</div>
+					{ this.state.error.doughnut && <p className='has-text-danger has-text-centered subtitle is-4'>{this.state.error.doughnut}</p> }
 				</div>
 			</div>
 		)

@@ -4,28 +4,17 @@ import moment from 'moment';
 import DiemForm from './DiemForm';
 import { startAddDiem } from '../actions/diems';
 
-export class AddDiem extends React.Component {
-
-	state = {
-		error: ''
-	}
-	
+export class AddDiem extends React.Component {	
 	onSubmit = (diem) => {
-		const index = this.props.diems.findIndex((storeDiem) => (
-			moment(storeDiem.date).isSame(moment(diem.date), 'day')));
-		if (index === -1) {
-			this.props.startAddDiem(diem);
-			this.props.history.push('/dashboard');
-		} else {
-			this.setState(() => ({ error: 'Already recorded this date!'}));
-		}
+		this.props.startAddDiem(diem);
+		this.props.history.push('/dashboard');
 	}
 
 	render() {
 		return (
 			<div className='section'>
 				<div className='container'>
-					<DiemForm onSubmit={this.onSubmit} error={this.state.error} />
+					<DiemForm onSubmit={this.onSubmit} diems={this.props.diems} />
 				</div>
 			</div>
 		)

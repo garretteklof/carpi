@@ -16,14 +16,19 @@ export class EditDiem extends React.Component {
 		return (
 			<div className='section'>
 				<div className='container'>
-					<DiemForm onSubmit={this.onSubmit} diem={this.props.diem} onRemove={this.onRemove} />
+					<DiemForm 
+						onSubmit={this.onSubmit} 
+						diem={this.props.diem}
+						diems={this.props.diems} 
+						onRemove={this.onRemove} />
 				</div>
 			</div>
 		)
 	}
 }
 const mapStateToProps = (state, props) => ({
-	diem: state.diems.find((diem) => diem.id === props.match.params.id)
+	diem: state.diems.find((diem) => diem.id === props.match.params.id),
+	diems: state.diems
 });
 const mapDispatchToProps = (dispatch) => ({
 	startEditDiem: (id, diem) => dispatch(startEditDiem(id, diem)),

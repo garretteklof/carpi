@@ -3,7 +3,7 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 export const ActivityInput = (props) => {
-	const { index, activity: { name, timeSpent }, onTimeSpentChange, removeActivityInput, checkTotalTime } = props;
+	const { index, activity: { name, timeSpent, category }, onTimeSpentChange, removeActivityInput, checkTotalTime } = props;
 	return (
 		<div className='slider'>
       <div className='slider--delete'>
@@ -29,6 +29,7 @@ export const ActivityInput = (props) => {
       <div className ='slider--level'>
         <label className='level-item subtitle is-4'>{name}</label>
         <p className='level-item subtitle is-2'>{timeSpent}</p>
+        <p className='level-item subtitle is-4'>{category}</p>
       </div>
     </div>
 	);

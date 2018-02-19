@@ -4,22 +4,29 @@ import { SingleDatePicker } from 'react-dates';
 import ActivityInput from './ActivityInput';
 import DiemDoughnut from './DiemDoughnut';
 
+const activitiesDefault = [
+	{ name: 'Sleeping', timeSpent: 8, category: 'Basic Necessity' },
+	{ name: 'Writing A Symphony', timeSpent: 0.5, category: 'Contributor' },
+	{ name: 'Procrastinating', timeSpent: 15.5, category: 'Inhibitor' }
+];
+
 export default class DiemForm extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.defaultState = {
 			date: props.diem ? moment(props.diem.date) : moment(),
-			activities: props.diem ? props.diem.activities : [{ name: 'Sleeping', timeSpent: 8 },{name: 'Procrastinating', timeSpent: 16 }],
+			activities: props.diem ? props.diem.activities : activitiesDefault,
 			remainder: props.diem ? props.diem.remainder : 0,
-			addActivity: '',
+			addActivityText: '',
+			addActivityCat: 'Contributor',
 			calendarFocused: false,
 			error: ''
 		};
 		this.state = this.defaultState;
 	}
 
-	resetState = () => {
+	resetStateComplete = () => {
 		this.setState(() => ({...this.defaultState, date: null, activities: [], remainder: 24}));
 	}
 
@@ -31,15 +38,21 @@ export default class DiemForm extends React.Component {
 		this.setState(() => ({ calendarFocused: focused }));
 	}
 
-	onActivityChange = (e) => {
-		const addActivity = e.target.value;
-		this.setState(() => ({ addActivity }));
+	onActivityNameChange = (e) => {
+		const addActivityText = e.target.value;
+		this.setState(() => ({ addActivityText }));
+	}
+
+	onActivityCategoryChange = (e) => {
+		const addActivityCat = e.target.value;
+		this.setState(() => ({ addActivityCat }));
 	}
 
 	addActivityInput = (e) => {
 		e.preventDefault();
-		const name = this.state.addActivity.trim().replace(/ +/g, ' ').replace(/\w\S*/g, 
-			(name) => name.charAt(0).toUpperCase() + name.substr(1).toLowerCase())
+		const category = this.state.addActivityCat
+		const name = this.state.addActivityText.trim().replace(/ +/g, ' ').replace(/\w\S*/g, 
+			(name) => name.charAt(0).toUpperCase() + name.substr(1).toLowerCase());
 		if (!name) {
 			this.setState(() => ({ error: 'Can\'t be blank!'}));
 		} else if (!name.match(/^[ a-zA-Z0-9]{0,25}$/)) {
@@ -52,19 +65,13 @@ export default class DiemForm extends React.Component {
 		} else if (this.state.activities.length >= 5) {
 				this.setState(() => ({ error: 'Max of five!'}));
 		} else {
-				this.setState({
-					activities: [...this.state.activities, { name, timeSpent: 0}],
-					addActivity: '',
-					error: ''
+			this.setState({
+				activities: [...this.state.activities, { name, category, timeSpent: 0}],
+				addActivityCat: 'Contributor',
+				addActivityText: '',
+				error: ''
 			});
 		}
-	}
-
-	onTimeSpentChange = (index) => (value) => {
-		const activities = [...this.state.activities];
-		activities[index].timeSpent = value;
-		const remainder = 24 - this.totalTime();
-		this.setState(() => ({ activities, remainder }));
 	}
 
 	removeActivityInput = (index) => (e) => {
@@ -74,6 +81,14 @@ export default class DiemForm extends React.Component {
 		activities.splice(index,1);
 		this.setState(() => ({ activities, remainder, error:''}));
 	}
+
+	onTimeSpentChange = (index) => (value) => {
+		const activities = [...this.state.activities];
+		activities[index].timeSpent = value;
+		const remainder = 24 - this.totalTime();
+		this.setState(() => ({ activities, remainder }));
+	}
+
 
 	totalTime = () => {
 		if (this.state.activities.length > 0) {
@@ -87,10 +102,8 @@ export default class DiemForm extends React.Component {
 		const remainder = 24 - totalTime;
 		if (totalTime > 24) {
 			// DO SOMETHNG (???)
-			console.log(totalTime);
 		} else {
 			 // DO SOMETHING (???)
-			console.log(totalTime);
 		}
 	}
 
@@ -141,10 +154,19 @@ export default class DiemForm extends React.Component {
 									placeholder='Add Activity'
 									className='input'
 									autoFocus
-									value={this.state.addActivity}
-									onChange={this.onActivityChange}
+									value={this.state.addActivityText}
+									onChange={this.onActivityNameChange}
 								/>
 							</p>
+							<div className='control'>
+								<div className='select is-info'>
+									<select value={this.state.addActivityCat} onChange={this.onActivityCategoryChange}>
+        						<option value='Contributor'>Contributor</option>
+        						<option value='Inhibitor'>Inhibitor</option>
+        						<option value='Basic Necessity'>Basic Necessity</option>
+      						</select>
+								</div>
+							</div>
 							<p className='control'>
 								<button className='button is-info' onClick={this.addActivityInput}>
 									Add Activity
@@ -166,7 +188,7 @@ export default class DiemForm extends React.Component {
 								<button className='button is-primary'>Submit</button>
 							</p>
 							<p className='control'>
-    						<a className='button is-light' onClick={this.resetState}>Clear</a>
+    						<a className='button is-light' onClick={this.resetStateComplete}>Clear</a>
     					</p>
     					{ this.props.diem && (
     						<p className='control'>

@@ -7,7 +7,7 @@ export const Navbar = ({ startLogout }) => (
 	<nav className="navbar is-transparent is-primary" role="navigation" aria-label="main navigation">
 		<div className='container'>
 			<div className="navbar-brand">
-				<Link className='navbar-item' to='/'>
+				<Link className='navbar-item' to='/dashboard'>
 					<img src='/images/carpi-white.svg' alt='carpi' width='112' height='28'/>
 				</Link>
 				<button className="button navbar-burger">

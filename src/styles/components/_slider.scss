@@ -1,21 +1,18 @@
-
+.slider--box {
+	padding: 15px 0;
+	margin-bottom: 10px;
+}
 .slider {
-	padding: 10px 0 15px;
+	padding: 15px 0;
 	width: 100%;
 }
 
 .slider--track {
 	height: 50px;
 }
-
-.slider--delete {
-	padding-bottom: 20px;
-	text-align: right;
-	width: 100%;
-}
 .slider--level {
 	@extend .level;
-	> label, p {
+	> label, p, div {
 		margin: 0 !important;
 	}
 }

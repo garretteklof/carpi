@@ -1,11 +1,12 @@
 import React from 'react';
 import Doughnut from 'react-chartjs-2';
+import { hexColors } from '../utils/colors';
 
 export default class DiemDoughnut extends React.Component {
 
 	nameToArray = (activities, remainder) => {
 		const nameToArray = activities.map(({name}) => name);
-		return remainder > 0 ? [...nameToArray, 'unrecorded'] : [...nameToArray];
+		return remainder > 0 ? [...nameToArray, 'untracked'] : [...nameToArray];
 	}
 	timeSpentToArray = (activities, remainder) => {
 		const timeSpentToArray = activities.map(({timeSpent}) => timeSpent);
@@ -15,10 +16,18 @@ export default class DiemDoughnut extends React.Component {
 	setColors = () => {
 		const act = this.props.activities;
 		const rem = this.props.remainder;
-		const remainderIndex = this.nameToArray(act, rem).lastIndexOf('unrecorded');
-		const remainderColor = '#CACFD6';
-		const colors = ['#FF6384','#36A2EB','#FFCE56','#b40cb8','#fd6996'];
-
+		const remainderIndex = this.nameToArray(act, rem).lastIndexOf('untracked');
+		const remainderColor = hexColors.gainsboro;
+		const colors = act.map(({category}) => {
+			switch (category) {
+				case 'Contributor':
+					return hexColors.canary;
+				case 'Inhibitor':
+					return hexColors.orangesoda;
+				case 'Basic Necessity':
+					return hexColors.cerulean;
+			}
+		});
 		if ( remainderIndex !== -1) {
 			colors.splice(remainderIndex, 0, remainderColor);
 		}

@@ -2,13 +2,21 @@ import React from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
+const tagColor = (category) => {
+  switch (category) {
+    case 'Contributor':
+      return 'tag is-large is-canary';
+    case 'Inhibitor':
+      return 'tag is-large is-orange-soda';
+    case 'Basic Necessity':
+      return 'tag is-large is-cerulean';
+  }
+};
+
 export const ActivityInput = (props) => {
-	const { index, activity: { name, timeSpent, category }, onTimeSpentChange, removeActivityInput, checkTotalTime } = props;
+	const { index, activity: { name, timeSpent, category }, onTimeSpentChange, removeActivityInput } = props;
 	return (
 		<div className='slider'>
-      <div className='slider--delete'>
-        <a className='delete' onClick={removeActivityInput(index)}></a>
-      </div>
       <Slider 
         className='slider--track'
       	min={0} 
@@ -24,12 +32,14 @@ export const ActivityInput = (props) => {
       	}
       	value={timeSpent}
       	onChange={onTimeSpentChange(index)}
-      	onAfterChange={checkTotalTime}
       />
       <div className ='slider--level'>
         <label className='level-item subtitle is-4'>{name}</label>
         <p className='level-item subtitle is-2'>{timeSpent}</p>
-        <p className='level-item subtitle is-4'>{category}</p>
+        <div className='level-item'>
+          <span className={tagColor(category)}>{category}</span>
+        </div>
+        <a className='level-item delete' onClick={removeActivityInput(index)}></a>
       </div>
     </div>
 	);

@@ -2,8 +2,10 @@ import React from 'react';
 import Doughnut from 'react-chartjs-2';
 import { connect } from 'react-redux';
 import { groupData } from '../utils/utils';
+import { hexColors } from '../utils/colors';
 import selectDiems from '../selectors/diems';
 import { setActivityGraph } from '../actions/filters';
+
 
 export class DiemListDoughnut extends React.Component {
 
@@ -13,7 +15,8 @@ export class DiemListDoughnut extends React.Component {
 		return Array.from(groupData(flattenedActivities, ({name}) => name))
 			.map((collection) => ({ 
 				name: collection[0], 
-				timeSpent: collection[1].map(({timeSpent}) => timeSpent).reduce((a,b) => a + b) 
+				timeSpent: collection[1].map(({timeSpent}) => timeSpent).reduce((a,b) => a + b),
+				category: collection[1][0].category
 			}));
 	}
 
@@ -22,7 +25,7 @@ export class DiemListDoughnut extends React.Component {
 	createNameArray = (diems) => {
 		const remainder = this.calculateRemainder(diems);
 		const nameArray = this.consolidateDiemsToGroupArray(diems).map(({name}) => name);
-		return remainder > 0 ? [...nameArray, 'unrecorded'] : [...nameArray];
+		return remainder > 0 ? [...nameArray, 'untracked'] : [...nameArray];
 	}
 
 	createTimeSpentArray = (diems) => {
@@ -31,20 +34,33 @@ export class DiemListDoughnut extends React.Component {
 		return remainder > 0 ? [...timeSpentArray, remainder] : [...timeSpentArray];
 	}
 
-	calculateActiveTime = (diems) => {
-		return this.createTimeSpentArray(diems).reduce((a,b) => a + b) - this.calculateRemainder(diems);
+	totalTime = (diems) => {
+		return this.createTimeSpentArray(diems).reduce((a,b) => a + b);
 	}
 
-	setColors = () => {
-		const remainderIndex = this.createNameArray(this.props.diems).lastIndexOf('unrecorded');
-		const remainderColor = '#CACFD6';
-		const colors = this.createNameArray(this.props.diems).map(() => (
-			'#' + ("000000" + Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6)));
-		/* random color generator -- overkill and unneeded, just for development */
+	setColors = (hover) => {
+		const categoryArray = 
+			this.consolidateDiemsToGroupArray(this.props.diems).map(({category}) => category);
+		const colors = categoryArray.map((category) => {
+			switch (category) {
+				case 'Contributor':
+					return [ hexColors.canary, hexColors.canary_hover]
+				case 'Inhibitor':
+					return [hexColors.orangesoda, hexColors.orangesoda_hover]
+				case 'Basic Necessity':
+					return [ hexColors.cerulean, hexColors.cerulean_hover]
+			}
+		});
+		const remainderIndex = this.createNameArray(this.props.diems).lastIndexOf('untracked');
+		const remainderColor = hexColors.gainsboro;
 		if ( remainderIndex !== -1) {
-			colors.splice(remainderIndex, 0, remainderColor);
+			colors.splice(remainderIndex, 0, [remainderColor, remainderColor]);
 		}
-		return colors;
+		if (hover) {
+			return colors.map((color) => color[1]);
+		} else {
+			return colors.map((color) => color[0]);
+		}
 	}
 
 	setData = (labels, data) => {
@@ -53,7 +69,7 @@ export class DiemListDoughnut extends React.Component {
 			datasets: [{
 				data,
 				backgroundColor: this.setColors(),
-				hoverBackgroundColor: this.setColors()
+				hoverBackgroundColor: this.setColors(true)
 			}]
 		};
 	}
@@ -91,7 +107,7 @@ export class DiemListDoughnut extends React.Component {
 						}}
 					/>
 				</div>
-				{ diems.length > 0 && <p className='has-text-centered'><span className='subtitle is-3'>{this.calculateActiveTime(diems)}</span> hrs (recorded)</p>}
+				{ diems.length > 0 && <p className='has-text-centered'><span className='subtitle is-3'>{this.totalTime(diems)}</span> hrs</p>}
 			</div>
 		)
 	}

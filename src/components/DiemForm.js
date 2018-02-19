@@ -1,6 +1,7 @@
 import React from 'react';
-import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
+import update from 'immutability-helper';
+import moment from 'moment';
 import ActivityInput from './ActivityInput';
 import DiemDoughnut from './DiemDoughnut';
 
@@ -83,10 +84,9 @@ export default class DiemForm extends React.Component {
 	}
 
 	onTimeSpentChange = (index) => (value) => {
-		const activities = [...this.state.activities];
-		activities[index].timeSpent = value;
+		const activities = update([...this.state.activities], {[index]: {timeSpent: {$set: value}}});
 		const remainder = 24 - this.totalTime();
-		this.setState(() => ({ activities, remainder }));
+		this.setState(() => ({ remainder, activities }));
 	}
 
 
@@ -168,21 +168,23 @@ export default class DiemForm extends React.Component {
 								</div>
 							</div>
 							<p className='control'>
-								<button className='button is-info' onClick={this.addActivityInput}>
+								<button className='button is-primary' onClick={this.addActivityInput}>
 									Add Activity
 								</button>
 							</p>
 						</div>
-						{this.state.activities.map((activity, index) =>
-							<ActivityInput
-								key={index}
-								index={index}
-								activity={activity}
-								onTimeSpentChange={this.onTimeSpentChange}
-								removeActivityInput={this.removeActivityInput}
-								checkTotalTime={this.checkTotalTime}
-							/>
-						)}
+						<div className='slider--box'>
+							{this.state.activities.map((activity, index) =>
+								<ActivityInput
+									key={index}
+									index={index}
+									activity={activity}
+									onTimeSpentChange={this.onTimeSpentChange}
+									removeActivityInput={this.removeActivityInput}
+									checkTotalTime={this.checkTotalTime}
+								/>
+							)}
+						</div>
 						<div className='field is-grouped is-grouped-centered'>
 							<p className='control'>
 								<button className='button is-primary'>Submit</button>
@@ -206,7 +208,7 @@ export default class DiemForm extends React.Component {
 							options={{
 								maintainAspectRatio: false,
 								legend: {
-									position: 'bottom'
+									display: false
 								}
 							}}
 						/>

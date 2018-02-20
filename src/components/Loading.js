@@ -1,8 +1,8 @@
 import React from 'react';
 
 const Loading = () => (
-	<div className='loader'>
-		<img className='loader__image' src='/images/loader.gif' />
+	<div className='container'>
+		<img className='loading' src='/images/loading.gif' />
 	</div>
 );
 

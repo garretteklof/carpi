@@ -20,9 +20,10 @@ export const Navbar = ({startLogout, uid}) => (
   			<div className="navbar-start">
   			</div>
   			<div className="navbar-end">
+        {/*
           <Link className='navbar-item' to={`/user/${uid}`}>
             Profile
-          </Link>
+          </Link>  */}
   				  <div className='navbar-item'>
   				  	<a 
   				  	className="button is-outlined is-inverted is-primary" 

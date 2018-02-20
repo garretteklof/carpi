@@ -3,6 +3,7 @@ import { Router, Route, Switch} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import LoginPage from '../components/LoginPage';
 import Dashboard from '../components/Dashboard';
+import UserProfile from '../components/UserProfile';
 import AddDiem from '../components/AddDiem';
 import EditDiem from '../components/EditDiem';
 import ActivityLineGraph from '../components/ActivityLineGraph';
@@ -18,6 +19,7 @@ const AppRouter = () => (
 			<Switch>
 				<PublicRoute path='/' component={LoginPage} exact={true}/>
 				<PrivateRoute path='/dashboard' component={Dashboard} />
+				<PrivateRoute path='/user/:uid' component={UserProfile} />
 				<PrivateRoute path='/create' component={AddDiem} />
 				<PrivateRoute path='/edit/:id' component={EditDiem} />
 				<PrivateRoute path='/graph/:activity' component={ActivityLineGraph} />

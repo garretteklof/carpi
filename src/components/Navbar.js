@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom'; //withRouter preserves is-a
 import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth.js'
 
-export const Navbar = ({ startLogout }) => (
+export const Navbar = ({startLogout, uid}) => (
 	<nav className="navbar is-transparent is-primary" role="navigation" aria-label="main navigation">
 		<div className='container'>
 			<div className="navbar-brand">
@@ -20,18 +20,19 @@ export const Navbar = ({ startLogout }) => (
   			<div className="navbar-start">
   			</div>
   			<div className="navbar-end">
-  				<div className='navbar-item'>
-  					<a 
-  					className="button is-outlined is-inverted is-primary" 
-  					onClick={startLogout}>Logout
-  					</a>
-  				</div>
+          <Link className='navbar-item' to={`/user/${uid}`}>
+            Profile
+          </Link>
+  				  <div className='navbar-item'>
+  				  	<a 
+  				  	className="button is-outlined is-inverted is-primary" 
+  				  	onClick={startLogout}>Logout
+  				  	</a>
+  				  </div>
   			</div>
   		</div>
 		</div>
 	</nav>
-
-
 );
 
 const mapDispatchToProps = (dispatch) => ({

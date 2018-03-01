@@ -3,7 +3,7 @@ import DashboardLevel from './DashboardLevel';
 import DiemListDoughnut from './DiemListDoughnut';
 import DiemList from './DiemList';
 
-const Dashboard = (props) => (
+export const Dashboard = (props) => (
   <section className="section">
     <div className="container">
       <DashboardLevel />

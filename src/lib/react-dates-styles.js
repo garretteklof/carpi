@@ -8,8 +8,8 @@ ThemedStyleSheet.registerTheme({
     ...DefaultTheme.reactDates,
     color: {
       ...DefaultTheme.reactDates.color
-    },
-  },
+    }
+  }
 });
 
 /*  Override the react-dates template as seen here:

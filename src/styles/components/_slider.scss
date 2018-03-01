@@ -1,18 +1,20 @@
 .slider--box {
-	padding: 15px 0;
-	margin-bottom: 10px;
+  padding: 15px 0;
+  margin-bottom: 10px;
 }
 .slider {
-	padding: 15px 0;
-	width: 100%;
+  padding: 15px 0;
+  width: 100%;
 }
 
 .slider--track {
-	height: 50px;
+  height: 50px;
 }
 .slider--level {
-	@extend .level;
-	> label, p, div {
-		margin: 0 !important;
-	}
+  @extend .level;
+  > label,
+  p,
+  div {
+    margin: 0 !important;
+  }
 }

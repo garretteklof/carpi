@@ -3,24 +3,23 @@
 
 @import url('https://fonts.googleapis.com/css?family=Arapey:400,400i');
 $body-size: 16px !default;
-$family-serif: "Arapey", serif;
+$family-serif: 'Arapey', serif;
 $family-primary: $family-serif;
 
-$sea-green: #1DD3B0;
+$sea-green: #1dd3b0;
 $sea-green-invert: findColorInvert($sea-green);
 
-$canary: #FFFF82;
+$canary: #ffff82;
 $canary-invert: findColorInvert($canary);
 
-$orange-soda: #ED6A5A; 
+$orange-soda: #ed6a5a;
 $orange-soda-invert: findColorInvert($orange-soda);
 
-$cerulean: #00A7E1;
+$cerulean: #00a7e1;
 $cerulean-invert: findColorInvert($cerulean);
 
-$gainsboro: #D9E5D6;
+$gainsboro: #d9e5d6;
 $gainsboro-invert: findColorInvert($gainsboro);
-
 
 $primary: $sea-green;
 $primary-invert: $sea-green-invert;
@@ -28,14 +27,13 @@ $primary-invert: $sea-green-invert;
 $danger: darken($orange-soda, 10%);
 $danger-invert: $orange-soda-invert;
 
-
 @import '../../../node_modules/bulma/sass/utilities/derived-variables';
 $addColors: (
-  "sea-green":($sea-green, $sea-green-invert),
-  "canary": ($canary, $canary-invert),
-  "orange-soda": ($orange-soda, $orange-soda-invert),
-  "cerulean": ($cerulean, $cerulean-invert),
-  "gainsboro": ($gainsboro, $gainsboro-invert)
+  'sea-green': ($sea-green, $sea-green-invert),
+  'canary': ($canary, $canary-invert),
+  'orange-soda': ($orange-soda, $orange-soda-invert),
+  'cerulean': ($cerulean, $cerulean-invert),
+  'gainsboro': ($gainsboro, $gainsboro-invert)
 );
 $colors: map-merge($colors, $addColors);
 

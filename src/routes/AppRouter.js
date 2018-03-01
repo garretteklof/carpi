@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, Switch} from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import LoginPage from '../components/LoginPage';
 import Dashboard from '../components/Dashboard';
@@ -14,19 +14,19 @@ import PublicRoute from './PublicRoute';
 export const history = createHistory();
 
 const AppRouter = () => (
-	<Router history={history}>
-		<div>
-			<Switch>
-				<PublicRoute path='/' component={LoginPage} exact={true}/>
-				<PrivateRoute path='/dashboard' component={Dashboard} />
-				<PrivateRoute path='/user/:uid' component={UserProfile} />
-				<PrivateRoute path='/create' component={AddDiem} />
-				<PrivateRoute path='/edit/:id' component={EditDiem} />
-				<PrivateRoute path='/graph/:activity' component={ActivityLineGraph} />
-				<Route component={NotFoundPage} />
-			</Switch>
-		</div>
-	</Router>
+  <Router history={history}>
+    <div>
+      <Switch>
+        <PublicRoute path="/" component={LoginPage} exact />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/user/:uid" component={UserProfile} />
+        <PrivateRoute path="/create" component={AddDiem} />
+        <PrivateRoute path="/edit/:id" component={EditDiem} />
+        <PrivateRoute path="/graph/:activity" component={ActivityLineGraph} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </div>
+  </Router>
 );
 
 export default AppRouter;

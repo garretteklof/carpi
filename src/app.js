@@ -15,29 +15,29 @@ ReactDOM.render(<Loading />, document.getElementById('app'));
 const store = configureStore();
 
 const jsx = (
-	<Provider store={store}>
-		<AppRouter />
-	</Provider>
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>
 );
 
 let hasRendered = false;
 const renderApp = () => {
-	if (!hasRendered) {
-		ReactDOM.render(jsx, document.getElementById('app'));
-		hasRendered = true;
-	}
+  if (!hasRendered) {
+    ReactDOM.render(jsx, document.getElementById('app'));
+    hasRendered = true;
+  }
 };
 
 firebase.auth().onAuthStateChanged((user) => {
-	if (user) {
-		store.dispatch(login(user.uid));
-		store.dispatch(startSetDiems()).then(() => {
-			renderApp();
-			//history.push('/dashboard');
-		});
-	} else {
-		store.dispatch(logout());
-		renderApp();
-		history.push('/');
-	}
+  if (user) {
+    store.dispatch(login(user.uid));
+    store.dispatch(startSetDiems()).then(() => {
+      renderApp();
+      // history.push('/dashboard');
+    });
+  } else {
+    store.dispatch(logout());
+    renderApp();
+    history.push('/');
+  }
 });

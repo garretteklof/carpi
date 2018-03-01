@@ -1,19 +1,19 @@
 export const setStartDate = (startDate) => ({
-	type: 'SET_START_DATE',
-	startDate
+  type: 'SET_START_DATE',
+  startDate
 });
 
 export const setEndDate = (endDate) => ({
-	type: 'SET_END_DATE',
-	endDate
+  type: 'SET_END_DATE',
+  endDate
 });
 
 export const setActivityText = (activityText = '') => ({
-	type: 'SET_ACTIVITY_TEXT',
-	activityText
+  type: 'SET_ACTIVITY_TEXT',
+  activityText
 });
 
 export const setActivityGraph = (activity) => ({
-	type: 'SET_ACTIVITY_GRAPH',
-	activity
+  type: 'SET_ACTIVITY_GRAPH',
+  activity
 });

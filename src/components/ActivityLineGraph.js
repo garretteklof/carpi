@@ -21,7 +21,7 @@ export class ActivityLineGraph extends React.Component {
         const value = clickedActivity.map(({ timeSpent }) => timeSpent);
         return { x: date, y: value[0] };
       }
-      return null;
+      return undefined;
     });
     return coordinates.filter((coordinate) => coordinate !== undefined);
   };

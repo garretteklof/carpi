@@ -79,18 +79,20 @@ export class DiemListDoughnut extends React.Component {
   };
 
   graphActivity = (chartElement) => {
-    const chart = this.refs.chart.chartInstance;
-    const index = chartElement[0]._index;
-    // const datasetIndex = chartElement[0]._datasetIndex;
-    const label = chart.data.labels[index];
-    // const value = chart.data.datasets[datasetIndex].data[index];
-    const isolateActivity = this.props.diems.map(({ activities }) =>
-      activities.filter(({ name }) => name === label)
-    );
-    const activityCount = [].concat(...isolateActivity).length;
-    if (activityCount > 1) {
-      this.props.setActivityGraph(label);
-      this.props.history.push(`/graph/${label.toLowerCase()}`);
+    if (chartElement.length) {
+      const chart = this.refs.chart.chartInstance;
+      const index = chartElement[0]._index;
+      // const datasetIndex = chartElement[0]._datasetIndex;
+      const label = chart.data.labels[index];
+      // const value = chart.data.datasets[datasetIndex].data[index];
+      const isolateActivity = this.props.diems.map(({ activities }) =>
+        activities.filter(({ name }) => name === label)
+      );
+      const activityCount = [].concat(...isolateActivity).length;
+      if (activityCount > 1) {
+        this.props.setActivityGraph(label);
+        this.props.history.push(`/graph/${label.toLowerCase()}`);
+      }
     }
   };
 
@@ -101,7 +103,7 @@ export class DiemListDoughnut extends React.Component {
         <div className="doughnut-container--list">
           <Doughnut
             ref="chart"
-            getElementAtEvent={this.graphActivity}
+            onElementsClick={this.graphActivity}
             data={this.setData(this.createNameArray(diems), this.createTimeSpentArray(diems))}
             options={{
               maintainAspectRatio: false,

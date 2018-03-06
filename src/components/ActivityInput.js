@@ -1,19 +1,7 @@
 import React from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-
-const tagColor = (category) => {
-  switch (category) {
-    case 'Contributor':
-      return 'tag is-large is-canary';
-    case 'Inhibitor':
-      return 'tag is-large is-orange-soda';
-    case 'Basic Necessity':
-      return 'tag is-large is-cerulean';
-    default:
-      return '';
-  }
-};
+import { setColor } from '../utils/tags';
 
 export const ActivityInput = (props) => {
   const {
@@ -42,7 +30,7 @@ export const ActivityInput = (props) => {
         <label className="level-item subtitle is-4">{name}</label>
         <p className="level-item subtitle is-2">{timeSpent}</p>
         <div className="level-item">
-          <span className={tagColor(category)}>{category}</span>
+          <span className={`is-large ${setColor(category)}`}>{category}</span>
         </div>
         <a className="level-item delete" onClick={removeActivityInput(index)} />
       </div>

@@ -8,6 +8,7 @@ import { startSetDiems } from './actions/diems';
 import { login, logout } from './actions/auth';
 import { firebase } from './firebase/firebase';
 import Loading from './components/Loading';
+import '../node_modules/react-typist/dist/Typist.css';
 import './styles/styles.scss';
 
 ReactDOM.render(<Loading />, document.getElementById('app'));

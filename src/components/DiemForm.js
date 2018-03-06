@@ -105,7 +105,7 @@ export default class DiemForm extends React.Component {
       const remainder = 24 - totalTime;
       if (totalTime > 24) {
         const error = update(this.state.error, { doughnut: { $set: '>24 Hours!' } });
-        this.setState(() => ({ remainder, error }));
+        this.setState(() => ({ error }));
       } else {
         this.setState(() => ({ remainder, error: [] }));
       }
@@ -162,6 +162,7 @@ export default class DiemForm extends React.Component {
                   showClearDate
                   hideKeyboardShortcutsPanel
                   block
+                  withPortal
                 />
               </div>
               {this.state.error.date && <p className="has-text-danger">{this.state.error.date}</p>}

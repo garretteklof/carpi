@@ -1,15 +1,46 @@
-.list-item {
-  margin: 0;
-  padding: 25px;
-  border-bottom: 3px dotted #d3d3d3;
-  position: relative;
+.list--item {
+  text-align: center;
   transition: background 0.5s ease;
   &:hover {
-    background: #f7f7f7;
+    background: $primary;
+    > a span {
+      color: white;
+    }
+  }
+  > a span {
+    transition: color 0.5s ease;
   }
 }
 
-.list-item__date {
-  position: absolute;
-  bottom: 0;
+.list--counter {
+  display: inline-block;
+  text-align: center;
+  line-height: 1 !important;
+  max-width: 130px;
+  position: relative;
+  margin: 0 15px;
+  padding: 5px;
+  color: $primary;
+  &:before {
+    content: ' ';
+    position: absolute;
+    border-left: 1px solid $primary;
+    border-top: 1px solid $primary;
+    border-bottom: 1px solid $primary;
+    padding: 5px;
+    top: -5px;
+    bottom: -5px;
+    left: -1px;
+  }
+  &:after {
+    content: ' ';
+    position: absolute;
+    border-right: 1px solid $primary;
+    border-top: 1px solid $primary;
+    border-bottom: 1px solid $primary;
+    padding: 5px;
+    top: -5px;
+    bottom: -5px;
+    right: -1px;
+  }
 }

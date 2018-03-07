@@ -7,6 +7,7 @@ import selectDiems from '../../selectors/diems';
 import { setActivityGraph } from '../../actions/filters';
 
 export class DiemListDoughnut extends React.Component {
+  state = { error: '' };
   consolidateDiemsToGroupArray = (diems) => {
     const allActivities = diems.map(({ activities }) => activities);
     const flattenedActivities = [].concat(...allActivities);
@@ -34,8 +35,10 @@ export class DiemListDoughnut extends React.Component {
     return remainder > 0 ? [...timeSpentArray, remainder] : [...timeSpentArray];
   };
 
-  totalTime = (diems) => {
-    return this.createTimeSpentArray(diems).reduce((a, b) => a + b);
+  totalTrackedTime = (diems) => {
+    return (
+      this.createTimeSpentArray(diems).reduce((a, b) => a + b) - this.calculateRemainder(diems)
+    );
   };
 
   setColors = (hover) => {
@@ -90,32 +93,34 @@ export class DiemListDoughnut extends React.Component {
       );
       const activityCount = [].concat(...isolateActivity).length;
       if (activityCount > 1) {
+        this.setState(() => ({ error: '' }));
         this.props.setActivityGraph(label);
         this.props.history.push(`/graph/${label.toLowerCase()}`);
+      } else if (activityCount === 1) {
+        this.setState(() => ({ error: 'Need at least two days with same activity to graph' }));
+      } else {
+        this.setState(() => ({ error: "Cannot graph 'untracked'" }));
       }
     }
   };
 
   render() {
     const { diems } = this.props;
+    const { error } = this.state;
     return (
-      <div>
+      <div className="has-text-centered">
+        <span className="has-text-danger">{error}</span>
         <div className="doughnut-container--list">
           <Doughnut
             ref="chart"
             onElementsClick={this.graphActivity}
             data={this.setData(this.createNameArray(diems), this.createTimeSpentArray(diems))}
-            options={{
-              maintainAspectRatio: false,
-              legend: {
-                display: false
-              }
-            }}
+            options={{ maintainAspectRatio: false, legend: { display: false } }}
           />
         </div>
         {diems.length > 0 && (
-          <p className="has-text-centered">
-            <span className="subtitle is-3">{this.totalTime(diems)}</span> hrs
+          <p>
+            <span className="subtitle is-3">{this.totalTrackedTime(diems)}</span> hrs (tracked)
           </p>
         )}
       </div>

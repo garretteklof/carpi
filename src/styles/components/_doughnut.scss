@@ -1,20 +1,21 @@
-.doughnut-container {
-  position: relative;
-  margin: 0 auto;
-  height: 150px;
-  width: 300px;
-}
-
-.doughnut-container--list {
-  position: relative;
-  margin: 25px auto 10px;
-  height: 316px;
-  width: 100%;
-}
-
 .doughnut-container--form {
   position: relative;
   margin: 0 auto;
   height: 500px;
+  width: 100%;
+}
+
+.doughnut-container--list {
+  position: relative;
+  margin: 0 auto;
+  height: 400px;
+  width: 400px;
+  > canvas:hover {
+    cursor: pointer;
+  }
+}
+
+.doughnut-container--list__item {
+  position: relative;
   width: 100%;
 }

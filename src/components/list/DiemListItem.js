@@ -4,25 +4,23 @@ import moment from 'moment';
 import DiemDoughnut from '../graphs/DiemDoughnut';
 
 const DiemListItem = ({ id, activities, date, remainder }) => (
-  <Link to={`/edit/${id}`}>
-    <div className="list-item is-clearfix">
-      <p className="list-item__date subtitle is-4 is-pulled-left">
-        {moment(date).format('MMMM Do, YYYY')}
-      </p>
-      <div className="doughnut-container is-pulled-right">
+  <div className="column is-one-third list--item">
+    <Link to={`/edit/${id}`}>
+      <div className="doughnut-container--list__item">
         <DiemDoughnut
           activities={activities}
           remainder={remainder}
           options={{
             maintainAspectRatio: false,
             legend: {
-              position: 'left'
+              display: false
             }
           }}
         />
       </div>
-    </div>
-  </Link>
+      <span className="subtitle is-5">{moment(date).format('MMMM Do, YYYY')}</span>
+    </Link>
+  </div>
 );
 
 export default DiemListItem;

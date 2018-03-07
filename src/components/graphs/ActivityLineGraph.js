@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { connect } from 'react-redux';
-import selectDiems from '../selectors/diems';
+import selectDiems from '../../selectors/diems';
 
 export class ActivityLineGraph extends React.Component {
   createDateAxis = ({ startDate, endDate }) => {

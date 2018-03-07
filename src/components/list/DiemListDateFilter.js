@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { DateRangePicker } from 'react-dates';
-import { setStartDate, setEndDate } from '../actions/filters';
+import { setStartDate, setEndDate } from '../../actions/filters';
 
 export class DiemListDateFilter extends React.Component {
   state = {

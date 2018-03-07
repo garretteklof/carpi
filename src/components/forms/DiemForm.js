@@ -3,7 +3,7 @@ import { SingleDatePicker } from 'react-dates';
 import update from 'immutability-helper';
 import moment from 'moment';
 import ActivityInput from './ActivityInput';
-import DiemDoughnut from './DiemDoughnut';
+import DiemDoughnut from '../graphs/DiemDoughnut';
 
 const activitiesDefault = [
   { name: 'Sleeping', timeSpent: 8, category: 'Basic Necessity' },
@@ -75,8 +75,8 @@ export default class DiemForm extends React.Component {
     } else if (this.state.activities.find((activity) => activity.name === name)) {
       const error = update(this.state.error, { input: { $set: 'Already entered!' } });
       this.setState(() => ({ error }));
-    } else if (this.state.activities.length >= 5) {
-      const error = update(this.state.error, { input: { $set: 'Max of five!' } });
+    } else if (this.state.activities.length >= 6) {
+      const error = update(this.state.error, { input: { $set: 'Max of six!' } });
       this.setState(() => ({ error }));
     } else {
       this.setState({

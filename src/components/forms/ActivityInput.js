@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { setColor } from '../utils/tags';
+import { setColor } from '../../utils/tags';
 
 export const ActivityInput = (props) => {
   const {

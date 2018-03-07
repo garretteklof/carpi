@@ -1,10 +1,10 @@
 import React from 'react';
 import Doughnut from 'react-chartjs-2';
 import { connect } from 'react-redux';
-import { groupData } from '../utils/utils';
-import { hexColors } from '../utils/colors';
-import selectDiems from '../selectors/diems';
-import { setActivityGraph } from '../actions/filters';
+import { groupData } from '../../utils/utils';
+import { hexColors } from '../../utils/colors';
+import selectDiems from '../../selectors/diems';
+import { setActivityGraph } from '../../actions/filters';
 
 export class DiemListDoughnut extends React.Component {
   consolidateDiemsToGroupArray = (diems) => {

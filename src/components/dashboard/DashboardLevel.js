@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DiemListDateFilter from './DiemListDateFilter';
-import DiemListActivityFilter from './DiemListActivityFilter';
-import DiemCounter from './DiemCounter';
+import DiemListDateFilter from '../list/DiemListDateFilter';
+import DiemListActivityFilter from '../list/DiemListActivityFilter';
+import DiemCounter from '../list/DiemCounter';
 
 export const DashboardLevel = () => (
   <div className="level">

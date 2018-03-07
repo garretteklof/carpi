@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startRemoveDiem, startEditDiem } from '../actions/diems';
+import { startRemoveDiem, startEditDiem } from '../../actions/diems';
 import DiemForm from './DiemForm';
 
 export class EditDiem extends React.Component {

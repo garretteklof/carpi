@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import DiemDoughnut from './DiemDoughnut';
+import DiemDoughnut from '../graphs/DiemDoughnut';
 
 const DiemListItem = ({ id, activities, date, remainder }) => (
   <Link to={`/edit/${id}`}>

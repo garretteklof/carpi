@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DiemListItem from './DiemListItem';
-import selectDiems from '../selectors/diems';
+import selectDiems from '../../selectors/diems';
 
 export const DiemList = ({ diems }) => (
   <div>

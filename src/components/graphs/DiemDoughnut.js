@@ -1,6 +1,6 @@
 import React from 'react';
 import Doughnut from 'react-chartjs-2';
-import { hexColors } from '../utils/colors';
+import { hexColors } from '../../utils/colors';
 
 export default class DiemDoughnut extends React.Component {
   nameToArray = (activities, remainder) => {

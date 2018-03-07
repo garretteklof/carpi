@@ -1,7 +1,7 @@
 import React from 'react';
 import DashboardLevel from './DashboardLevel';
-import DiemListDoughnut from './DiemListDoughnut';
-import DiemList from './DiemList';
+import DiemListDoughnut from '../graphs/DiemListDoughnut';
+import DiemList from '../list/DiemList';
 
 export const Dashboard = (props) => (
   <section className="section">

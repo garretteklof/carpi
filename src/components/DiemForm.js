@@ -179,7 +179,7 @@ export default class DiemForm extends React.Component {
                 />
               </p>
               <div className="control">
-                <div className="select is-info">
+                <div className="select">
                   <select
                     value={this.state.addActivityCat}
                     onChange={this.onActivityCategoryChange}

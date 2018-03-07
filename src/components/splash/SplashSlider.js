@@ -7,10 +7,27 @@ export const SplashSlider = ({ index, name, category, timeSpent, onChange }) => 
   <div className="slider">
     <Slider
       className="slider--track"
+      trackStyle={{ backgroundColor: '#fff', height: 10 }}
+      railStyle={{ backgroundColor: '#F7FFF7', height: 10 }}
+      handleStyle={{
+        borderColor: '#fff',
+        borderWidth: 5,
+        height: 20,
+        width: 20,
+        marginLeft: -10,
+        marginTop: -6,
+        backgroundColor: '#1DD3B0'
+      }}
+      dotStyle={{ display: 'none' }}
       min={0}
       max={24}
       step={0.25}
-      marks={{ 0: '0', 8: '8', 16: '16', 24: '24' }}
+      marks={{
+        0: { label: '0', style: { fontSize: 16, marginTop: 1, color: 'white' } },
+        8: { label: '8', style: { fontSize: 16, marginTop: 1, color: 'white' } },
+        16: { label: '16', style: { fontSize: 16, marginTop: 1, color: 'white' } },
+        24: { label: '24', style: { fontSize: 16, marginTop: 1, color: 'white' } }
+      }}
       value={timeSpent}
       onChange={onChange(index)}
     />

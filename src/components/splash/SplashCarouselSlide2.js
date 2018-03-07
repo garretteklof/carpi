@@ -13,11 +13,11 @@ export const SplashCarouselSlide2 = ({ forward, backward, category, flipCategory
     <div className="slide2--wrapper">
       <span className="title is-1">Type an activity :</span>
       <div className="input slide2--input" disabled>
-        <Typist startDelay={2000} onLineTyped={flipCategory} cursor={{ hideWhenDone: true }}>
+        <Typist startDelay={1000} onLineTyped={flipCategory} cursor={{ hideWhenDone: true }}>
           <span>Writing That Symphony</span>
-          <Typist.Backspace count={21} delay={3000} />
+          <Typist.Backspace count={21} delay={2000} />
           <span>Watching Netflix</span>
-          <Typist.Backspace count={16} delay={3000} />
+          <Typist.Backspace count={16} delay={2000} />
           <span>Sleeping</span>
           <Typist.Backspace count={8} delay={2000} />
           <span>Running</span>

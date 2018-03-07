@@ -14,14 +14,26 @@ export const ActivityInput = (props) => {
     <div className="slider">
       <Slider
         className="slider--track"
+        trackStyle={{ backgroundColor: '#1dd3b0', height: 10 }}
+        railStyle={{ backgroundColor: '#F7FFF7', height: 10 }}
+        handleStyle={{
+          borderColor: '#1dd3b0',
+          borderWidth: 5,
+          height: 20,
+          width: 20,
+          marginLeft: -10,
+          marginTop: -6,
+          backgroundColor: 'white'
+        }}
+        dotStyle={{ display: 'none' }}
         min={0}
         max={24}
         step={0.25}
         marks={{
-          0: '0',
-          8: '8',
-          16: '16',
-          24: '24'
+          0: { label: '0', style: { fontSize: 16, marginTop: 1 } },
+          8: { label: '8', style: { fontSize: 16, marginTop: 1 } },
+          16: { label: '16', style: { fontSize: 16, marginTop: 1 } },
+          24: { label: '24', style: { fontSize: 16, marginTop: 1 } }
         }}
         value={timeSpent}
         onChange={onTimeSpentChange(index)}

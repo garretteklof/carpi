@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import DiemListLevel from './DiemListLevel';
+import { Link } from 'react-router-dom';
 import DiemListItem from './DiemListItem';
 import DiemListPagination from './DiemListPagination';
 import selectDiems from '../../selectors/diems';
@@ -32,7 +32,17 @@ export class DiemList extends React.Component {
     const { page } = this.state;
     return (
       <div className="column">
-        <DiemListLevel />
+        <div className="has-text-centered">
+          <Link to="/create" className="button is-primary">
+            New Diem
+          </Link>
+        </div>
+        <DiemListPagination
+          page={page}
+          backward={this.paginateBackward}
+          forward={this.paginateForward}
+          showForward={this.showPaginateForward()}
+        />
         <div className="columns is-multiline">
           {diems.length === 0 ? (
             <div className="column has-text-centered">
@@ -42,12 +52,6 @@ export class DiemList extends React.Component {
             this.divideDiems(diems).map((diem) => <DiemListItem key={diem.id} {...diem} />)
           )}
         </div>
-        <DiemListPagination
-          page={page}
-          backward={this.paginateBackward}
-          forward={this.paginateForward}
-          showForward={this.showPaginateForward()}
-        />
       </div>
     );
   }

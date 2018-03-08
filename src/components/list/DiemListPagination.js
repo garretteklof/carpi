@@ -1,4 +1,5 @@
 import React from 'react';
+// import { Link } from 'react-router-dom';
 
 export const DiemListPagination = ({ page, backward, forward, showForward }) => (
   <div className="level">
@@ -11,11 +12,7 @@ export const DiemListPagination = ({ page, backward, forward, showForward }) => 
         )}
       </div>
     </div>
-    {page > 1 && (
-      <div className="level-item">
-        <span className="has-text-primary title is-3">{page}</span>
-      </div>
-    )}
+    <div className="level-item" />
     <div className="level-right">
       <div className="level-item">
         {showForward && (

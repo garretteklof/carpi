@@ -1,0 +1,11 @@
+@media (max-width: 1024px) {
+  .navbar-item {
+    text-align: center !important;
+  }
+  .nav--button {
+    background: $primary !important;
+    &:hover {
+      color: white !important;
+    }
+  }
+}

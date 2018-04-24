@@ -170,7 +170,7 @@ export default class DiemForm extends React.Component {
                 <p className="has-text-dark-green">{this.state.error.date}</p>
               )}
             </div>
-            <div className="field is-grouped">
+            <div className="field is-grouped activity-form">
               <p className="control is-expanded">
                 <input
                   type="text"

@@ -9,3 +9,25 @@ body {
   color: $white;
   min-height: 100vh;
 }
+
+.activity-form {
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    .control {
+      margin-right: 0 !important;
+      &:not(:last-child) {
+        margin-bottom: 4px !important;
+      }
+      .select {
+        > select {
+          width: 100%;
+        }
+      }
+      > * {
+        width: 100%;
+      }
+    }
+  }
+}

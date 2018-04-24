@@ -13,6 +13,9 @@
   > canvas:hover {
     cursor: pointer;
   }
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 }
 
 .doughnut-container--list__item {

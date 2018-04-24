@@ -33,7 +33,7 @@ export class DiemList extends React.Component {
     return (
       <div className="column">
         <div className="has-text-centered">
-          <Link to="/create" className="button is-primary">
+          <Link to="/create" className="button is-uppercase is-white has-text-primary">
             New Diem
           </Link>
         </div>
@@ -46,7 +46,7 @@ export class DiemList extends React.Component {
         <div className="columns is-multiline">
           {diems.length === 0 ? (
             <div className="column has-text-centered">
-              <span className="subtitle is-4">No diems.</span>
+              <span className="subtitle is-4 has-text-white">No diems.</span>
             </div>
           ) : (
             this.divideDiems(diems).map((diem) => <DiemListItem key={diem.id} {...diem} />)

@@ -31,6 +31,7 @@ export class DiemListDateFilter extends React.Component {
         isOutsideRange={() => false}
         showClearDates
         hideKeyboardShortcutsPanel
+        noBorder
       />
     );
   }

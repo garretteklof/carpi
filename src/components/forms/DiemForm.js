@@ -163,9 +163,12 @@ export default class DiemForm extends React.Component {
                   hideKeyboardShortcutsPanel
                   block
                   withPortal
+                  noBorder
                 />
               </div>
-              {this.state.error.date && <p className="has-text-danger">{this.state.error.date}</p>}
+              {this.state.error.date && (
+                <p className="has-text-dark-green">{this.state.error.date}</p>
+              )}
             </div>
             <div className="field is-grouped">
               <p className="control is-expanded">
@@ -173,7 +176,6 @@ export default class DiemForm extends React.Component {
                   type="text"
                   placeholder="Add Activity"
                   className="input"
-                  autoFocus
                   value={this.state.addActivityText}
                   onChange={this.onActivityNameChange}
                 />
@@ -191,12 +193,17 @@ export default class DiemForm extends React.Component {
                 </div>
               </div>
               <p className="control">
-                <button className="button is-primary" onClick={this.addActivityInput}>
+                <button
+                  className="button is-inverted is-primary is-outlined"
+                  onClick={this.addActivityInput}
+                >
                   Add Activity
                 </button>
               </p>
             </div>
-            {this.state.error.input && <p className="has-text-danger">{this.state.error.input}</p>}
+            {this.state.error.input && (
+              <p className="has-text-dark-green">{this.state.error.input}</p>
+            )}
             <div className="slider--box">
               {this.state.activities.map((activity, index) => (
                 <ActivityInput
@@ -210,7 +217,7 @@ export default class DiemForm extends React.Component {
             </div>
             <div className="field is-grouped is-grouped-centered">
               <p className="control">
-                <button className="button is-primary">Submit</button>
+                <button className="button is-outlined is-inverted is-primary">Submit</button>
               </p>
               <p className="control">
                 <a className="button is-light" onClick={this.resetStateComplete}>
@@ -219,7 +226,7 @@ export default class DiemForm extends React.Component {
               </p>
               {this.props.diem && (
                 <p className="control">
-                  <a className="button is-danger" onClick={this.props.onRemove}>
+                  <a className="button is-dark-green" onClick={this.props.onRemove}>
                     Delete
                   </a>
                 </p>

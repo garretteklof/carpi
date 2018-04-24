@@ -9,29 +9,42 @@ ThemedStyleSheet.registerTheme({
     border: {
       input: {
         ...DefaultTheme.reactDates.border.input,
-        borderBottomFocused: `2px solid #1dd3b0`
+        borderBottom: 0,
+        borderBottomFocused: 0
       }
     },
     color: {
       ...DefaultTheme.reactDates.color,
+      placeholderText: '#03312e',
       selectedSpan: {
-        backgroundColor: '#95F9E3',
-        backgroundColor_active: '#1dd3b0',
-        backgroundColor_hover: '#1dd3b0',
-        borderColor: '#1dd3b0',
-        borderColor_active: '#1dd3b0',
-        borderColor_hover: '#1dd3b0',
+        backgroundColor: '#1dd3b0',
+        backgroundColor_active: '#03312e',
+        backgroundColor_hover: '#03312e',
+        borderColor: '#03312e',
+        borderColor_active: '#03312e',
+        borderColor_hover: '#03312e',
+        color: '#fff !important',
+        color_active: '#fff !important',
+        color_hover: '#fff !important'
+      },
+      hoveredSpan: {
+        backgroundColor: '#1dd3b0',
+        backgroundColor_active: '#03312e',
+        backgroundColor_hover: '#03312e',
+        borderColor: '#03312e',
+        borderColor_active: '#03312e',
+        borderColor_hover: '#03312e',
         color: '#fff !important',
         color_active: '#fff !important',
         color_hover: '#fff !important'
       },
       selected: {
-        backgroundColor: '#1dd3b0',
-        backgroundColor_active: '#1dd3b0',
-        backgroundColor_hover: '#1dd3b0',
-        borderColor: '#1dd3b0',
-        borderColor_active: '#1dd3b0',
-        borderColor_hover: '#1dd3b0',
+        backgroundColor: '#03312e',
+        backgroundColor_active: '#03312e',
+        backgroundColor_hover: '#03312e',
+        borderColor: '#03312e',
+        borderColor_active: '#03312e',
+        borderColor_hover: '#03312e',
         color: '#fff !important',
         color_active: '#fff !important',
         color_hover: '#fff !important'

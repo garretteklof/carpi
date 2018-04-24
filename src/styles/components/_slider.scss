@@ -9,6 +9,7 @@
 
 .slider--track {
   height: 50px;
+  color: blue;
 }
 .slider--level {
   @extend .level;
@@ -16,5 +17,14 @@
   p,
   div {
     margin: 0 !important;
+  }
+  .delete {
+    background-color: white;
+    &::before {
+      background-color: $primary;
+    }
+    &::after {
+      background-color: $primary;
+    }
   }
 }

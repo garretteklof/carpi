@@ -16,7 +16,7 @@ export const SplashCarouselSlide5 = ({ forward, backward }) => (
     <h1 className="title is-1 has-text-centered">Log More And More Days</h1>
     <div className="columns">
       <div className="column is-one-fifth">
-        <span className="subtitle is-5">
+        <span className="title is-5">
           {moment()
             .subtract(6, 'day')
             .format('MMMM Do, YYYY')}
@@ -29,7 +29,7 @@ export const SplashCarouselSlide5 = ({ forward, backward }) => (
         </div>
       </div>
       <div className="column is-one-fifth">
-        <span className="subtitle is-5">
+        <span className="title is-5">
           {moment()
             .subtract(5, 'day')
             .format('MMMM Do, YYYY')}
@@ -42,7 +42,7 @@ export const SplashCarouselSlide5 = ({ forward, backward }) => (
         </div>
       </div>
       <div className="column is-one-fifth">
-        <span className="subtitle is-5">
+        <span className="title is-5">
           {moment()
             .subtract(4, 'day')
             .format('MMMM Do, YYYY')}
@@ -55,7 +55,7 @@ export const SplashCarouselSlide5 = ({ forward, backward }) => (
         </div>
       </div>
       <div className="column is-one-fifth">
-        <span className="subtitle is-5">
+        <span className="title is-5">
           {moment()
             .subtract(3, 'day')
             .format('MMMM Do, YYYY')}
@@ -68,7 +68,7 @@ export const SplashCarouselSlide5 = ({ forward, backward }) => (
         </div>
       </div>
       <div className="column is-one-fifth">
-        <span className="subtitle is-5">
+        <span className="title is-5">
           {moment()
             .subtract(2, 'day')
             .format('MMMM Do, YYYY')}
@@ -90,7 +90,7 @@ export const SplashCarouselSlide5 = ({ forward, backward }) => (
         options={{ maintainAspectRatio: false, legend: { display: false } }}
       />
     </div>
-    <h1 className="title is-1 has-text-centered">Or Filter For Specific Activities</h1>
+    <h1 className="title is-1 has-text-centered">Filter For Specific Activities</h1>
     <input type="text" className="input slide5--input" value="Playing Che" disabled readOnly />
     <div className="splash-doughnut__filter">
       <Doughnut

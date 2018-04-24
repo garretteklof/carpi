@@ -16,7 +16,7 @@ export const SplashCarouselSlide7 = ({ startLogin }) => (
     </Link>
     <h1 className="subtitle is-1">Seize Today!</h1>
     <button className="button is-primary is-inverted is-large is-outlined" onClick={startLogin}>
-      Login
+      Login with Google
     </button>
   </div>
 );

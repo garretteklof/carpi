@@ -21,6 +21,9 @@ $cerulean-invert: findColorInvert($cerulean);
 $gainsboro: #d9e5d6;
 $gainsboro-invert: findColorInvert($gainsboro);
 
+$dark-green: #03312e;
+$dark-green-invert: findColorInvert($dark-green);
+
 $primary: $sea-green;
 $primary-invert: $sea-green-invert;
 
@@ -33,7 +36,8 @@ $addColors: (
   'canary': ($canary, $canary-invert),
   'orange-soda': ($orange-soda, $orange-soda-invert),
   'cerulean': ($cerulean, $cerulean-invert),
-  'gainsboro': ($gainsboro, $gainsboro-invert)
+  'gainsboro': ($gainsboro, $gainsboro-invert),
+  'dark-green': ($dark-green, $dark-green-invert)
 );
 $colors: map-merge($colors, $addColors);
 

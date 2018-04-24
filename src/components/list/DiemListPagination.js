@@ -6,7 +6,7 @@ export const DiemListPagination = ({ page, backward, forward, showForward }) => 
     <div className="level-left">
       <div className="level-item">
         {page > 1 && (
-          <a className="icon is-large has-text-primary" onClick={backward}>
+          <a className="icon is-large has-text-white" onClick={backward}>
             <i className="fas fa-3x fa-arrow-circle-left" />
           </a>
         )}
@@ -16,7 +16,7 @@ export const DiemListPagination = ({ page, backward, forward, showForward }) => 
     <div className="level-right">
       <div className="level-item">
         {showForward && (
-          <a className="icon is-large has-text-primary" onClick={forward}>
+          <a className="icon is-large has-text-white" onClick={forward}>
             <i className="fas fa-3x fa-arrow-circle-right" />
           </a>
         )}

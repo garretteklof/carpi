@@ -41,8 +41,10 @@ export class ActivityLineGraph extends React.Component {
     return (
       <section className="section">
         <div className="container">
-          <p className="subtitle is-2 has-text-centered">{this.props.filters.activityGraph}</p>
-          <p className="subtitle is-4 has-text-centered">
+          <p className="title is-2 has-text-centered has-text-white">
+            {this.props.filters.activityGraph}
+          </p>
+          <p className="subtitle is-4 has-text-centered has-text-white">
             {`
             ${this.props.filters.startDate.format('MMMM DD, YYYY')} - 
             ${this.props.filters.endDate.format('MMMM DD, YYYY')}`}
@@ -55,18 +57,18 @@ export class ActivityLineGraph extends React.Component {
                   label: this.props.filters.activityGraph,
                   fill: false,
                   lineTension: 0.1,
-                  backgroundColor: 'rgba(75,192,192,0.4)',
-                  borderColor: 'rgba(75,192,192,1)',
+                  backgroundColor: '#fff',
+                  borderColor: '#fff',
                   borderCapStyle: 'butt',
                   borderDash: [],
                   borderDashOffset: 0.0,
                   borderJoinStyle: 'miter',
-                  pointBorderColor: 'rgba(75,192,192,1)',
+                  pointBorderColor: '#fff',
                   pointBackgroundColor: '#fff',
                   pointBorderWidth: 1,
                   pointHoverRadius: 5,
-                  pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                  pointHoverBorderColor: 'rgba(220,220,220,1)',
+                  pointHoverBackgroundColor: '#fff',
+                  pointHoverBorderColor: '#fff',
                   pointHoverBorderWidth: 2,
                   pointRadius: 1,
                   pointHitRadius: 10,
@@ -75,6 +77,7 @@ export class ActivityLineGraph extends React.Component {
               ]
             }}
             options={{
+              legend: { labels: { fontColor: '#fff' } },
               scales: {
                 xAxes: [
                   {
@@ -82,13 +85,18 @@ export class ActivityLineGraph extends React.Component {
                     time: {
                       unit: 'day',
                       tooltipFormat: 'MMM D, YYYY',
-                      displayFormats: {
-                        day: 'MMM D'
-                      }
-                    }
+                      displayFormats: { day: 'MMM D' }
+                    },
+                    gridLines: { display: false, color: '#fff' },
+                    ticks: { fontColor: '#fff' }
                   }
                 ],
-                yAxes: [{}]
+                yAxes: [
+                  {
+                    gridLines: { display: false, color: '#fff' },
+                    ticks: { fontColor: '#fff' }
+                  }
+                ]
               }
             }}
           />

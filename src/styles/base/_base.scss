@@ -3,3 +3,9 @@
 *:after {
   box-sizing: border-box; /*** react-dates ***/
 }
+
+body {
+  background-color: $primary;
+  color: $white;
+  min-height: 100vh;
+}

@@ -4,10 +4,12 @@ import moment from 'moment';
 
 export const SplashCarouselSlide6 = ({ forward, backward }) => (
   <div className="column is-half has-text-centered">
-    <h1 className="title is-1 has-text-centered">Even Click On An Activity To See It Over Time!</h1>
+    <h1 className="title is-1 has-text-centered">
+      Even Click On An Activity To See It Graphed Over Time!
+    </h1>
     <div className="slide6--graph">
-      <p className="subtitle is-2 has-text-centered has-text-dark">Writing That Symphony</p>
-      <p className="subtitle is-4 has-text-centered has-text-dark">
+      <p className="title is-2 has-text-centered has-text-white">Writing That Symphony</p>
+      <p className="subtitle is-4 has-text-centered has-text-white">
         {`
             ${moment()
               .subtract(6, 'days')
@@ -30,17 +32,17 @@ export const SplashCarouselSlide6 = ({ forward, backward }) => (
               label: 'Writing That Symphony',
               fill: false,
               lineTension: 0.1,
-              backgroundColor: '#1dd3b0',
-              borderColor: '#1dd3b0',
+              backgroundColor: '#fff',
+              borderColor: '#fff',
               borderCapStyle: 'butt',
               borderDash: [],
               borderDashOffset: 0.0,
               borderJoinStyle: 'miter',
-              pointBorderColor: '#1dd3b0',
+              pointBorderColor: '#fff',
               pointBackgroundColor: '#fff',
               pointBorderWidth: 1,
               pointHoverRadius: 5,
-              pointHoverBackgroundColor: '#1dd3b0',
+              pointHoverBackgroundColor: '#fff',
               pointHoverBorderColor: '#fff',
               pointHoverBorderWidth: 2,
               pointRadius: 1,
@@ -50,6 +52,7 @@ export const SplashCarouselSlide6 = ({ forward, backward }) => (
           ]
         }}
         options={{
+          legend: { labels: { fontColor: '#fff' } },
           scales: {
             xAxes: [
               {
@@ -58,10 +61,12 @@ export const SplashCarouselSlide6 = ({ forward, backward }) => (
                   unit: 'day',
                   tooltipFormat: 'MMM D, YYYY',
                   displayFormats: { day: 'MMM D' }
-                }
+                },
+                gridLines: { display: false, color: '#fff' },
+                ticks: { fontColor: '#fff' }
               }
             ],
-            yAxes: [{}]
+            yAxes: [{ gridLines: { display: false, color: '#fff' }, ticks: { fontColor: '#fff' } }]
           }
         }}
       />

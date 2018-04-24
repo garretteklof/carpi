@@ -92,12 +92,16 @@ export class DiemListDoughnut extends React.Component {
         activities.filter(({ name }) => name === label)
       );
       const activityCount = [].concat(...isolateActivity).length;
-      if (activityCount > 1) {
+      if (activityCount === 1) {
+        this.setState(() => ({ error: 'Need at least two days with same activity to graph' }));
+      } else if (!this.props.filters.startDate || !this.props.filters.endDate) {
+        this.setState(() => ({
+          error: 'Need a complete date range to graph.'
+        }));
+      } else if (activityCount > 1) {
         this.setState(() => ({ error: '' }));
         this.props.setActivityGraph(label);
         this.props.history.push(`/graph/${label.toLowerCase()}`);
-      } else if (activityCount === 1) {
-        this.setState(() => ({ error: 'Need at least two days with same activity to graph' }));
       } else {
         this.setState(() => ({ error: "Cannot graph 'untracked'" }));
       }
@@ -109,7 +113,7 @@ export class DiemListDoughnut extends React.Component {
     const { error } = this.state;
     return (
       <div className="has-text-centered">
-        <span className="has-text-danger">{error}</span>
+        <span className="has-text-dark-green">{error}</span>
         <div className="doughnut-container--list">
           <Doughnut
             ref="chart"
@@ -119,8 +123,9 @@ export class DiemListDoughnut extends React.Component {
           />
         </div>
         {diems.length > 0 && (
-          <p>
-            <span className="subtitle is-3">{this.totalTrackedTime(diems)}</span> hrs (tracked)
+          <p className="has-text-white">
+            <span className="title is-3 has-text-white">{this.totalTrackedTime(diems)}</span> hrs
+            (tracked)
           </p>
         )}
       </div>
@@ -129,7 +134,8 @@ export class DiemListDoughnut extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  diems: selectDiems(state.diems, state.filters)
+  diems: selectDiems(state.diems, state.filters),
+  filters: state.filters
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -12,7 +12,7 @@ export class DiemListActivityFilter extends React.Component {
       <input
         type="text"
         placeholder="Search By Activity"
-        className="input input--filter"
+        className="input input--filter has-text-dark-green"
         value={this.props.filters.activityText}
         onChange={this.onActivityTextChange}
       />

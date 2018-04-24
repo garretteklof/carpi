@@ -5,7 +5,7 @@ import SplashDoughnut from './SplashDoughnut';
 export const SplashCarouselSlide4 = ({ forward, backward, setDoughnutData }) => (
   <div className="column is-half has-text-centered">
     <h1 className="title is-1 has-text-centered">Ta Da!</h1>
-    <span className="subtitle is-3">
+    <span className="title is-3">
       {moment()
         .subtract(1, 'day')
         .format('MMMM Do, YYYY')}

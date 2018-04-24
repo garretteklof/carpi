@@ -2,9 +2,9 @@
   text-align: center;
   transition: background 0.5s ease;
   &:hover {
-    background: $primary;
+    background: $white;
     > a span {
-      color: white;
+      color: $primary !important;
     }
   }
   > a span {

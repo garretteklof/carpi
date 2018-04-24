@@ -13,7 +13,6 @@ export class Navbar extends React.Component {
   };
   render() {
     const { startLogout } = this.props;
-    console.log(this.state.active);
     return (
       <nav className="navbar is-transparent is-primary" aria-label="main navigation">
         <div className="container">

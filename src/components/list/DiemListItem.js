@@ -18,7 +18,7 @@ const DiemListItem = ({ id, activities, date, remainder }) => (
           }}
         />
       </div>
-      <span className="subtitle is-5">{moment(date).format('MMMM Do, YYYY')}</span>
+      <span className="title is-5 has-text-white">{moment(date).format('MMMM Do, YYYY')}</span>
     </Link>
   </div>
 );

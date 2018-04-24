@@ -34,7 +34,7 @@ firebase.auth().onAuthStateChanged((user) => {
     store.dispatch(login(user.uid));
     store.dispatch(startSetDiems()).then(() => {
       renderApp();
-      // history.push('/dashboard');
+      history.push('/dashboard');
     });
   } else {
     store.dispatch(logout());
